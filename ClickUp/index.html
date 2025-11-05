@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Najnowsze porady, tutoriale i best practices dotyczące ClickUp. Dowiedz się jak efektywnie wdrożyć i wykorzystać ClickUp w swojej firmie.">
+    <meta property="og:title" content="Blog ClickUp - Porady i Wdrożenia">
+    <meta property="og:description" content="Praktyczne porady dotyczące ClickUp, automatyzacji i zarządzania projektami">
+    <meta property="og:type" content="website">
+    <title>Blog ClickUp - Porady, Wdrożenia, Automatyzacje</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --primary-light: #38bdf8;
+            --bg-dark: #000000;
+            --bg-darker: #0a0a0a;
+            --bg-card: #171717;
+            --bg-card-hover: #262626;
+            --text-primary: #fafafa;
+            --text-secondary: #a3a3a3;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --urgent: #ef4444;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Mesh Gradient Background */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at 20% 30%, rgba(14, 165, 233, 0.15), transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(56, 189, 248, 0.12), transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(2, 132, 199, 0.1), transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+        
+        @keyframes meshMove {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridFloat 30s linear infinite;
+        }
+        
+        @keyframes gridFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        
+        /* Floating Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.6;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-light), transparent);
+            bottom: 20%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+        
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, var(--primary-dark), transparent);
+            top: 60%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.9); }
+            75% { transform: translate(20px, 30px) scale(1.05); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-dot {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-cta {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+        }
+        
+        .nav-cta:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Search & Filter */
+        .search-filter {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .category-btn:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+        
+        .blog-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: revealCard 0.6s ease-out forwards;
+        }
+        
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .blog-card:hover::before {
+            left: 100%;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        
+        @keyframes revealCard {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .blog-card:nth-child(1) { animation-delay: 0.1s; }
+        .blog-card:nth-child(2) { animation-delay: 0.2s; }
+        .blog-card:nth-child(3) { animation-delay: 0.3s; }
+        .blog-card:nth-child(4) { animation-delay: 0.4s; }
+        .blog-card:nth-child(5) { animation-delay: 0.5s; }
+        .blog-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        
+        .blog-category {
+            padding: 0.25rem 0.75rem;
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 6px;
+            color: var(--primary-light);
+            font-weight: 500;
+        }
+        
+        .blog-reading-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .blog-card h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        
+        .blog-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .blog-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .blog-date {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+        
+        .read-more:hover {
+            gap: 1rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            max-width: 800px;
+            margin: 4rem auto 6rem;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 24px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
+        
+        .newsletter h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .newsletter p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .newsletter-submit {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+        }
+        
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            padding: 2rem 0 4rem;
+        }
+        
+        .load-more-btn {
+            padding: 1rem 3rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .load-more-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        .load-more-btn:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 1.5rem 3rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1.5rem 3rem;
+            }
+            
+            .categories {
+                justify-content: flex-start;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .orb-1, .orb-2, .orb-3 {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid rgba(14, 165, 233, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block !important;
+            }
+            
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="mesh-background"></div>
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo" style="text-decoration: none; cursor: pointer;">ClickUp<span class="logo-dot">.</span>Blog</a>
+            <div class="nav-links" id="navLinks">
+                <a href="/#problems" class="nav-link">Wyzwania</a>
+                <a href="/#benefits" class="nav-link">Co zyskujesz</a>
+                <a href="/#knowledge" class="nav-link">Wiedza</a>
+                <a href="/#founders" class="nav-link">O nas</a>
+                <a href="/blog/" class="nav-link">Blog</a>
+                <a href="/ClickUp/" class="nav-link" style="color: var(--primary);">ClickUp</a>
+                <a href="https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b" target="_blank" class="nav-cta" aria-label="Dołącz do MasterZone">Chcę dołączyć!</a>
+            </div>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">☰</div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Odkryj moc ClickUp</h1>
+        <p>Praktyczne porady, automatyzacje i najlepsze praktyki, które pomogą Ci w pełni wykorzystać potencjał ClickUp w Twojej firmie</p>
+    </header>
+    
+    <!-- Search & Filter -->
+    <section class="search-filter">
+        <div class="search-container">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input 
+                type="search" 
+                class="search-input" 
+                id="searchInput"
+                placeholder="Szukaj artykułów..." 
+                aria-label="Wyszukaj artykuły na blogu"
+            >
+        </div>
+        
+        <div class="categories">
+            <button class="category-btn active" data-category="all">Wszystkie</button>
+            <button class="category-btn" data-category="automatyzacje">Automatyzacje</button>
+            <button class="category-btn" data-category="wdrozenia">Wdrożenia</button>
+            <button class="category-btn" data-category="integracje">Integracje</button>
+            <button class="category-btn" data-category="porownania">Porównania</button>
+            <button class="category-btn" data-category="best-practices">Best Practices</button>
+        </div>
+    </section>
+    
+    <!-- Blog Grid -->
+    <main class="blog-grid" id="blogGrid">
+        <!-- Blog posts will be inserted here by JavaScript -->
+    </main>
+    
+    <!-- Load More Button -->
+    <div class="load-more-container">
+        <button class="load-more-btn" id="loadMoreBtn">Pokaż więcej artykułów</button>
+    </div>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <h2>Bądź na bieżąco</h2>
+        <p>Otrzymuj najnowsze artykuły, tutoriale i tips & tricks prosto na swoją skrzynkę</p>
+        <form class="newsletter-form" id="newsletterForm" aria-label="Formularz zapisu do newslettera">
+            <input 
+                type="email" 
+                class="newsletter-input" 
+                placeholder="Twój adres email" 
+                required
+                aria-label="Adres email"
+            >
+            <button type="submit" class="newsletter-submit">Zapisz się</button>
+        </form>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#o-nas">O nas</a>
+                <a href="#uslugi">Usługi</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#polityka">Polityka prywatności</a>
+            </div>
+            <p class="footer-copyright">© 2025 ClickUp Blog. Wszystkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Blog posts data
+       
+let blogPosts = [];
+
+// Fetch posts from JSON
+async function loadPosts() {
+    try {
+        const response = await fetch('/ClickUp/posts.json?t=' + Date.now());
+        const data = await response.json();
+        blogPosts = data;
+        renderPosts();
+    } catch (error) {
+        console.error('Error loading posts:', error);
+    }
+}
+
+// Load posts on page load
+loadPosts();
+
+        
+        let displayedPosts = 6;
+        let currentCategory = 'all';
+        let searchQuery = '';
+        
+        // Render blog posts
+        function renderPosts() {
+            const grid = document.getElementById('blogGrid');
+            const filteredPosts = filterPosts();
+            const postsToShow = filteredPosts.slice(0, displayedPosts);
+            
+            grid.innerHTML = postsToShow.map(post => `
+                <article class="blog-card" role="article">
+                    <div class="blog-meta">
+                        <span class="blog-category">${getCategoryLabel(post.category)}</span>
+                        <span class="blog-reading-time">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            ${post.readingTime} czytania
+                        </span>
+                    </div>
+                    <h2>${post.title}</h2>
+                    <p class="blog-excerpt">${post.excerpt}</p>
+                    <a href="#${post.slug}" class="cta-button">Umów darmową konsultację</a>
+                    <div class="blog-footer">
+                        <span class="blog-date">${post.date}</span>
+                        <a href="#${post.slug}" class="read-more">
+                            Czytaj więcej
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+            
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            loadMoreBtn.style.display = displayedPosts >= filteredPosts.length ? 'none' : 'inline-block';
+        }
+        
+        // Filter posts
+        function filterPosts() {
+            return blogPosts.filter(post => {
+                const matchesCategory = currentCategory === 'all' || post.category === currentCategory;
+                const matchesSearch = searchQuery === '' || 
+                    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+        }
+        
+        // Get category label
+        function getCategoryLabel(category) {
+            const labels = {
+                'automatyzacje': 'Automatyzacje',
+                'wdrozenia': 'Wdrożenia',
+                'integracje': 'Integracje',
+                'porownania': 'Porównania',
+                'best-practices': 'Best Practices'
+            };
+            return labels[category] || category;
+        }
+        
+        // Category filter
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                displayedPosts = 6;
+                renderPosts();
+            });
+        });
+        
+        // Search functionality
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchQuery = e.target.value;
+                displayedPosts = 6;
+                renderPosts();
+            }, 300);
+        });
+        
+        // Load more
+        document.getElementById('loadMoreBtn').addEventListener('click', () => {
+            displayedPosts += 3;
+            renderPosts();
+        });
+        
+        // Newsletter form
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Dziękujemy za zapisanie się do newslettera! 🎉');
+            e.target.reset();
+        });
+        
+        // Navbar scroll effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Intersection Observer for scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        
+        // Observe cards
+        setTimeout(() => {
+            document.querySelectorAll('.blog-card').forEach(card => {
+                observer.observe(card);
+            });
+        }, 100);
+        
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
