@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="qT6xxbkTyOYWZ05vBVgFUYbll0yCE7qGIkDdqIwSUSM" />
     <title>MasterZone - Miejsce gdzie przedsiębiorcy faktycznie się znają | Dołącz do nas</title>
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -1265,7 +1264,7 @@
 
             <div class="stats">
                 <div class="stat">
-                    <span class="stat-number" data-target="40">0</span>
+                    <span class="stat-number" data-target="33">0</span>
                     <span class="stat-label">Aktywnych członków</span>
                 </div>
                 <div class="stat">
@@ -1276,18 +1275,6 @@
                     <span class="stat-number" data-target="100">0</span>
                     <span class="stat-label">% Zaangażowania grupy</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="scroll-reveal" style="padding: 6rem 2rem; background: linear-gradient(135deg, var(--dark-soft), var(--dark));">
-        <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-            <h2 class="section-title">Nasza <span class="gradient-text">Misja</span></h2>
-            <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02)); border: 2px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 3rem; margin-bottom: 3rem;">
-                <p style="font-size: 1.5rem; line-height: 1.8; color: var(--text); font-weight: 500;">
-                    MasterZone daje przedsiębiorcom i freelancerom <span style="color: var(--primary); font-weight: 700;">klarowność i skupienie</span> oraz pomaga odzyskać czas – dzięki planowaniu, skupionej pracy oraz systemom i narzędziom.
-                </p>
             </div>
         </div>
     </section>
@@ -1303,9 +1290,6 @@
         </div>
         
         <h2 class="section-title">Znasz to <span class="gradient-text" style="color: var(--urgent);">uczucie?</span></h2>
-        <p style="text-align: center; font-size: 1.25rem; color: var(--text-muted); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-            Problemy ze skupieniem i rozproszeniem
-        </p>
         <div class="problem-grid">
             <div class="problem-card">
                 <div class="problem-icon">😤</div>
@@ -1580,9 +1564,8 @@
                 </h3>
                 <div style="max-width: 900px; margin: 0 auto; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 1rem; overflow: hidden;">
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
-                        <iframe
-                            id="latest-youtube-video"
-                            src="https://www.youtube.com/embed/qpI-Ic88ZZQ"
+                        <iframe 
+                            src="https://www.youtube.com/embed/qpI-Ic88ZZQ" 
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
                             allowfullscreen>
                         </iframe>
@@ -1653,17 +1636,17 @@
                 MasterZone to miejsce, gdzie przedsiębiorcy wspierają się nawzajem.
             </p>
             <div class="membership-fee">
-                $14<span style="font-size: 1.5rem; color: var(--text-muted);">/miesiąc</span>
+                7 DNI ZA DARMO<span style="font-size: 1.5rem; color: var(--text-muted);"> potem $14/msc</span>
             </div>
             <ul class="cta-list">
-                <li>Osobista sesja startowa z Mateuszem lub Radkiem (30 min, 1-na-1)</li>
-                <li>Regularne sesje Deep Work online</li>
-                <li>Planowanie tygodnia w piątki i soboty</li>
-                <li>Błyskawiczne wsparcie od twórców i społeczności (odpowiedź w 15 min)</li>
-                <li>Pełna biblioteka kursów i narzędzi</li>
-                <li>Kwartalne warsztaty strategiczne</li>
-                <li>Dostęp do ekskluzywnej społeczności przedsiębiorców</li>
-                <li>Bezpośredni mentoring od praktyków biznesu</li>
+                <li>✨ Osobista sesja startowa z Mateuszem lub Radkiem (30 min, 1-na-1)</li>
+                <li>🎯 Regularne sesje Deep Work online</li>
+                <li>📅 Planowanie tygodnia w piątki i soboty</li>
+                <li>💬 Błyskawiczne wsparcie od twórców i społeczności (odpowiedź w 15 min)</li>
+                <li>📚 Pełna biblioteka kursów i narzędzi</li>
+                <li>🚀 Kwartalne warsztaty strategiczne</li>
+                <li>👥 Dostęp do ekskluzywnej społeczności przedsiębiorców</li>
+                <li>🎓 Bezpośredni mentoring od praktyków biznesu</li>
             </ul>
             <button class="final-cta" onclick="goToSkool()">
                 Zobacz jak wygląda nasza społeczność →
@@ -1976,7 +1959,7 @@
         // Fetch live member count from stats.json
         async function updateMemberCount() {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone-main/main/stats.json?t=' + Date.now());
+                const response = await fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/stats.json?t=' + Date.now());
 
                 if (!response.ok) {
                     console.log('stats.json not found, using default count');
@@ -2006,54 +1989,6 @@
 
         // Call on page load
         updateMemberCount();
-
-        // Fetch latest YouTube video from channel (excluding shorts)
-        async function updateLatestYouTubeVideo() {
-            try {
-                // MasterZone Pro channel ID
-                const channelId = 'UCY-AnlAlZ2bxR07KDj3e4cQ';
-
-                // Use RSS2JSON to fetch latest videos
-                const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-                const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
-                const response = await fetch(apiUrl);
-
-                if (!response.ok) {
-                    console.log('Could not fetch latest video, using default');
-                    return;
-                }
-
-                const data = await response.json();
-
-                if (data.items && data.items.length > 0) {
-                    // Filter out shorts - only show full videos
-                    const fullVideos = data.items.filter(video => !video.link.includes('/shorts/'));
-
-                    if (fullVideos.length > 0) {
-                        const latestVideo = fullVideos[0];
-                        const videoId = latestVideo.link.split('v=')[1];
-
-                        console.log('✅ Latest video:', latestVideo.title);
-                        console.log('✅ Video ID:', videoId);
-
-                        // Update iframe src
-                        const iframe = document.getElementById('latest-youtube-video');
-                        if (iframe && videoId) {
-                            iframe.src = `https://www.youtube.com/embed/${videoId}`;
-                            console.log('✅ YouTube video updated to:', videoId);
-                        }
-                    }
-                }
-
-            } catch (error) {
-                console.error('Error loading latest YouTube video:', error);
-                // Fallback to default video
-            }
-        }
-
-        // Call on page load
-        updateLatestYouTubeVideo();
     </script>
 </body>
 </html>
