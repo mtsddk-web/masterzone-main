@@ -1015,14 +1015,14 @@ allPosts = (data.posts || []).filter(post => {
     
     const topContent = hasValidImage
         ? `<img src="${post.imageUrl}" alt="${post.title}" class="blog-card-image" loading="lazy">`
-        : `<div class="blog-card-emoji">${post.emoji || '📝'}</div>`;
+        : post.emoji ? `<div class="blog-card-emoji">${post.emoji}</div>` : '';
     
     return `
         <article class="blog-card" onclick="openPostModal('${post.id || ''}')">
             ${topContent}
             <div class="blog-card-content">
                 <div class="blog-meta">
-                    <span class="blog-category">${post.emoji || '📝'} ${getCategoryLabel(post.category)}</span>
+                    <span class="blog-category">${getCategoryLabel(post.category)}</span>
                     <span class="blog-reading-time">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"></circle>
@@ -1109,7 +1109,7 @@ allPosts = (data.posts || []).filter(post => {
                     
                     <div class="modal-header">
                         <div class="modal-meta">
-                            <span class="modal-category">${post.emoji || '📝'} ${getCategoryLabel(post.category)}</span>
+                            <span class="modal-category">${getCategoryLabel(post.category)}</span>
                             <span class="modal-reading-time">${post.readingTime} czytania</span>
                         </div>
                         <h1 class="modal-title">${post.title}</h1>
