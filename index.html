@@ -1236,7 +1236,7 @@
                 <a href="#founders" class="nav-link">O nas</a>
                 <a href="/blog/" class="nav-link">Blog</a>
                 <a href="/ClickUp/" class="nav-link">ClickUp</a>
-                <button class="nav-btn" onclick="goToSkool()">
+                <button class="nav-btn" onclick="scrollToSection('join-cta')">
                     Chcę dołączyć!
                 </button>
             </div>
@@ -1254,7 +1254,7 @@
             <p class="hero-subtitle">W MasterZone pracujesz ramię w ramię z przedsiębiorcami,<br>którzy faktycznie rozumieją Twoje wyzwania.</p>
             
             <div class="cta-container">
-                <button class="cta-primary" onclick="goToSkool()">
+                <button class="cta-primary" onclick="scrollToSection('join-cta')">
                     Dołącz do społeczności
                 </button>
                 <button class="cta-secondary" onclick="scrollToSection('benefits')">
@@ -1264,7 +1264,7 @@
 
             <div class="stats">
                 <div class="stat">
-                    <span class="stat-number" data-target="33">0</span>
+                    <span class="stat-number" data-target="40" id="member-count">0</span>
                     <span class="stat-label">Aktywnych członków</span>
                 </div>
                 <div class="stat">
@@ -1429,6 +1429,16 @@
                 <p class="benefit-description">Kiedy widzisz jak inni klepią kod o 9 rano, sam siadasz do roboty. Presja społeczna działa cuda.</p>
                 <div class="benefit-result">→ Zrobisz 3x więcej niż sam</div>
             </div>
+        </div>
+
+        <!-- CTA after benefits -->
+        <div style="text-align: center; margin-top: 4rem;">
+            <button class="cta-primary" onclick="scrollToSection('join-cta')" style="font-size: 1.125rem; padding: 1.25rem 3rem;">
+                Chcę dołączyć do społeczności →
+            </button>
+            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.875rem;">
+                💡 Pierwsze 7 dni ZA DARMO
+            </p>
         </div>
     </section>
 
@@ -1623,12 +1633,25 @@
                         Więcej wartościowych treści już wkrótce...
                     </p>
                 </div>
+
+                <!-- CTA after knowledge center -->
+                <div style="text-align: center; margin-top: 4rem; padding: 3rem 2rem; background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02)); border-radius: 20px; border: 2px solid rgba(14, 165, 233, 0.2);">
+                    <h3 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--text);">
+                        Gotowy żeby dołączyć do <span class="gradient-text">MasterZone</span>?
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.125rem;">
+                        Zacznij pracować z grupą przedsiębiorców, którzy naprawdę się znają
+                    </p>
+                    <button class="cta-primary" onclick="scrollToSection('join-cta')" style="font-size: 1.125rem; padding: 1.25rem 3rem;">
+                        Zobacz szczegóły i dołącz →
+                    </button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Final CTA -->
-    <section class="join-cta scroll-reveal">
+    <section class="join-cta scroll-reveal" id="join-cta">
         <div class="cta-card">
             <div class="membership-badge">Dołącz do MasterZone</div>
             <h2 class="section-title" style="margin-bottom: 1rem;">Pracuj z <span class="gradient-text">najlepszymi</span></h2>
