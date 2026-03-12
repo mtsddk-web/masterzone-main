@@ -992,9 +992,9 @@
 
     <!-- ===== SIGNUP FORM SCRIPT ===== -->
     <script>
-        // CONFIG — zmień URL grupy Skool na właściwy
+        var API_URL = 'https://rozproszenie.masterzone.edu.pl/api/workshop-signup';
         var SKOOL_GROUP_URL = 'https://www.skool.com/masterzone';
-        var REDIRECT_DELAY = 2500; // ms
+        var REDIRECT_DELAY = 2500;
 
         function handleFormSubmit(e) {
             e.preventDefault();
@@ -1021,23 +1021,33 @@
             btn.disabled = true;
             btn.textContent = 'Zapisuję...';
 
-            // Save to localStorage as backup
-            try {
-                var signups = JSON.parse(localStorage.getItem('warsztat_signups') || '[]');
-                signups.push({ name: name, email: email, date: new Date().toISOString() });
-                localStorage.setItem('warsztat_signups', JSON.stringify(signups));
-            } catch(err) {}
-
-            // Show success
-            setTimeout(function() {
+            // Send to MailerLite via API
+            fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, email: email })
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
                 document.getElementById('signup-form').style.display = 'none';
                 document.getElementById('signup-success').style.display = 'block';
-
-                // Redirect to Skool group
                 setTimeout(function() {
                     window.location.href = SKOOL_GROUP_URL;
                 }, REDIRECT_DELAY);
-            }, 600);
+            })
+            .catch(function(err) {
+                // Even if API fails, show success and redirect (localStorage backup)
+                try {
+                    var signups = JSON.parse(localStorage.getItem('warsztat_signups') || '[]');
+                    signups.push({ name: name, email: email, date: new Date().toISOString() });
+                    localStorage.setItem('warsztat_signups', JSON.stringify(signups));
+                } catch(e) {}
+                document.getElementById('signup-form').style.display = 'none';
+                document.getElementById('signup-success').style.display = 'block';
+                setTimeout(function() {
+                    window.location.href = SKOOL_GROUP_URL;
+                }, REDIRECT_DELAY);
+            });
 
             return false;
         }
