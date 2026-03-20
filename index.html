@@ -565,6 +565,35 @@
             margin-top: 3rem;
         }
 
+        .testimonials-grid .testimonial-card:nth-child(4),
+        .testimonials-grid .testimonial-card:nth-child(5) {
+            grid-column: span 1;
+        }
+
+        /* Center last row (2 cards in 3-col grid) */
+        .testimonials-grid {
+            justify-items: center;
+        }
+
+        .testimonials-grid .testimonial-card:nth-child(4) {
+            grid-column: 1 / 2;
+            justify-self: end;
+            max-width: 420px;
+        }
+
+        .testimonials-grid .testimonial-card:nth-child(5) {
+            grid-column: 2 / 4;
+            justify-self: start;
+            max-width: 420px;
+        }
+
+        .testimonials-grid .testimonial-card:nth-child(1),
+        .testimonials-grid .testimonial-card:nth-child(2),
+        .testimonials-grid .testimonial-card:nth-child(3) {
+            justify-self: stretch;
+            max-width: none;
+        }
+
         .testimonial-card {
             padding: 2rem;
             background: var(--bg);
@@ -876,6 +905,13 @@
                 grid-template-columns: 1fr;
             }
 
+            .testimonials-grid .testimonial-card:nth-child(4),
+            .testimonials-grid .testimonial-card:nth-child(5) {
+                grid-column: auto;
+                justify-self: stretch;
+                max-width: none;
+            }
+
             .benefits-grid,
             .founders-grid {
                 grid-template-columns: 1fr;
@@ -940,7 +976,7 @@
                 <a href="#founders">O nas</a>
                 <a href="/blog/">Blog</a>
                 <a href="/ClickUp/">ClickUp</a>
-                <button class="btn btn-primary" onclick="goToSkool()">Dołącz</button>
+                <button class="btn btn-primary" onclick="goToCheckout()">Dołącz</button>
             </div>
             <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -964,7 +1000,7 @@
             </p>
 
             <div class="hero-cta">
-                <button class="btn btn-primary btn-large" onclick="goToSkool()">
+                <button class="btn btn-primary btn-large" onclick="goToCheckout()">
                     Dołącz do społeczności
                 </button>
                 <button class="btn btn-secondary btn-large" onclick="scrollToSection('benefits')">
@@ -1139,32 +1175,52 @@
 
             <div class="testimonials-grid reveal">
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"Pierwszy raz od lat faktycznie kończę dzień z poczuciem, że coś zrobiłem. Deep Work to game changer."</p>
+                    <p class="testimonial-text">"Zamiast toczyć poranną walkę z budzikiem, dzięki Blokom Pracy Głębokiej o 7:56 zbieram się do pracy w ekspresowym tempie. Już o 8:00 działam, a o 8:55 świętuje pierwsze sukcesy! To jak poranny zastrzyk energii, który działa lepiej niż kawa."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">MK</div>
+                        <div class="author-avatar">I</div>
                         <div>
-                            <div class="author-name">Michał K.</div>
-                            <div class="author-role">Agencja marketingowa</div>
+                            <div class="author-name">Iza</div>
+                            <div class="author-role">Wirtualna Asystentka</div>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"Kameralna grupa to idealna liczba. Znamy się, pomagamy sobie, a Mateusz i Radek są zawsze dostępni."</p>
+                    <p class="testimonial-text">"Ja lubię tę godzinę bo czas leci mi bardzo szybko i też pracuję szybko i sprawnie. I fajna jest też ta świadomość że inni pracują co bywa motywujące przy pracy zdalnej."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">AS</div>
+                        <div class="author-avatar">MO</div>
                         <div>
-                            <div class="author-name">Anna S.</div>
-                            <div class="author-role">E-commerce</div>
+                            <div class="author-name">Mikołaj Olejnik</div>
+                            <div class="author-role">Członek MasterZone</div>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-text">"Przestałem się czuć jak samotna wyspa. Mam zespół, mimo że prowadzę JDG."</p>
+                    <p class="testimonial-text">"Myślę, że warto spróbować, bo sam fakt, że jesteś 'na wizji' mobilizuje, jak również dzielenie się później z uczestnikami, czy udało się zrealizować założony cel. Na mnie dobrze wpływa świadomość, że to tylko godzina, więc trzeba być szybkim i wydajnym."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">PL</div>
+                        <div class="author-avatar">P</div>
                         <div>
-                            <div class="author-name">Piotr L.</div>
-                            <div class="author-role">Konsulting IT</div>
+                            <div class="author-name">Patrycja</div>
+                            <div class="author-role">Członek MasterZone</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Mega sesja pracy głębokiej! Muszę przyznać — to była petarda! Dzięki temu, że inni patrzyli mi na ręce, maksymalnie się skupiłem i zrobiłem dużo więcej w krótszym czasie. Blok czasowy wymusił pełne skupienie."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PT</div>
+                        <div>
+                            <div class="author-name">Patryk Tokarz</div>
+                            <div class="author-role">Przedsiębiorca</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Te bloki to połączenie przyjemnego z pożytecznym. W ciągu godziny jest miejsce na chwilę rozmowy, zobaczenie znajomych i zrobienie czegoś dla siebie ważnego. Śmiało, można wbijać — przetestowałem, jest bezpiecznie i efektywnie!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">U</div>
+                        <div>
+                            <div class="author-name">Uczestnik bloków</div>
+                            <div class="author-role">Członek MasterZone</div>
                         </div>
                     </div>
                 </div>
@@ -1284,11 +1340,11 @@
                 </ul>
 
                 <div class="text-center">
-                    <button class="btn btn-primary btn-large" onclick="goToSkool()" style="width: 100%; max-width: 360px; justify-content: center;">
+                    <button class="btn btn-primary btn-large" onclick="goToCheckout()" style="width: 100%; max-width: 360px; justify-content: center;">
                         Dołącz do MasterZone
                     </button>
                     <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ink-muted);">
-                        Przejdziesz na Skool.com, gdzie możesz zajrzeć do grupy
+                        Bezpieczna płatność kartą. Anulujesz w dowolnym momencie.
                     </p>
                 </div>
             </div>
@@ -1323,8 +1379,8 @@
             document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function goToSkool() {
-            window.open('https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b', '_blank');
+        function goToCheckout() {
+            window.location.href = 'https://rozproszenie.masterzone.edu.pl/checkout';
         }
 
         // Navbar scroll
