@@ -3,1992 +3,1422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MasterZone - Miejsce gdzie przedsiębiorcy faktycznie się znają | Dołącz do nas</title>
+    <title>MasterZone — Głęboka praca w skupionej społeczności</title>
+    <meta name="description" content="Dołącz do społeczności przedsiębiorców, freelancerów i soloprzedsiębiorców, którzy codziennie pracują razem w skupieniu. 4 bloki deep work dziennie, planowanie tygodnia, mastermind.">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://api.fonts.coollabs.io" crossorigin>
+    <link href="https://api.fonts.coollabs.io/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
-            --primary-light: #38bdf8;
-            --dark: #000000;
-            --dark-soft: #0a0a0a;
-            --dark-light: #171717;
-            --gray: #262626;
-            --text: #fafafa;
-            --text-muted: #a3a3a3;
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --urgent: #ef4444;
+            --bg: #FAFAF8;
+            --bg-alt: #F3F2EE;
+            --ink: #1A1A1A;
+            --ink-soft: #3D3D3D;
+            --ink-muted: #8A8A82;
+            --accent: #4F46E5;
+            --accent-soft: #6366F1;
+            --accent-bg: #EEF2FF;
+            --warm: #D97706;
+            --warm-bg: #FFFBEB;
+            --border: #E8E7E3;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--dark);
-            color: var(--text);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
             overflow-x: hidden;
-            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Animated Mesh Gradient Background */
-        .bg-mesh {
+        /* Noise texture overlay */
+        body::after {
+            content: '';
             position: fixed;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            z-index: -2;
-            background: radial-gradient(at 40% 20%, var(--primary-dark) 0px, transparent 50%),
-                        radial-gradient(at 80% 0%, var(--dark-soft) 0px, transparent 50%),
-                        radial-gradient(at 0% 50%, var(--primary) 0px, transparent 50%),
-                        radial-gradient(at 80% 50%, var(--dark-light) 0px, transparent 50%),
-                        radial-gradient(at 0% 100%, var(--dark-soft) 0px, transparent 50%),
-                        radial-gradient(at 80% 100%, var(--primary-dark) 0px, transparent 50%),
-                        radial-gradient(at 0% 0%, var(--dark) 0px, transparent 50%);
-            animation: meshMove 20s ease infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes meshMove {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-20px, -30px) rotate(120deg); }
-            66% { transform: translate(20px, -10px) rotate(240deg); }
-        }
-
-        /* Grid Pattern Overlay */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: 
-                linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 10s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Floating Orbs */
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.5;
-            animation: float 20s infinite ease-in-out;
+            inset: 0;
             pointer-events: none;
-            z-index: -1;
+            z-index: 9999;
+            opacity: 0.018;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px;
         }
 
-        .orb1 {
-            width: 400px;
-            height: 400px;
-            background: var(--primary);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
+        .serif { font-family: 'Instrument Serif', Georgia, serif; }
 
-        .orb2 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary-dark);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 5s;
-        }
-
-        .orb3 {
-            width: 250px;
-            height: 250px;
-            background: var(--primary-light);
-            top: 50%;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        /* Navigation */
+        /* ─── Navigation ─── */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 2rem;
-            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            padding: 0 2rem;
+            transition: var(--transition);
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(250, 250, 248, 0.8);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
         }
 
-        nav.scrolled {
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+        nav.scrolled::before {
+            border-bottom-color: var(--border);
         }
 
-        .nav-container {
-            max-width: 1400px;
+        .nav-inner {
+            position: relative;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 72px;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-            color: var(--text);
-            position: relative;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .logo::after {
-            content: '.';
-            color: var(--primary);
-            font-size: 2.5rem;
-            position: absolute;
-            margin-left: 2px;
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
             align-items: center;
+            gap: 2rem;
         }
 
-        .nav-link {
-            color: var(--text-muted);
+        .nav-links a {
+            color: var(--ink-muted);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-size: 0.9rem;
             font-weight: 500;
+            transition: color 0.2s;
         }
 
-        .nav-link:hover {
-            color: var(--primary);
-        }
+        .nav-links a:hover { color: var(--ink); }
 
-        .nav-btn {
-            padding: 0.75rem 2rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 8px;
-            color: white;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.5rem;
+            border-radius: 100px;
             font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            animation: navPulse 2s ease infinite;
+            border: none;
+            font-family: inherit;
         }
 
-        @keyframes navPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(14, 165, 233, 0); }
+        .btn-primary {
+            background: var(--ink);
+            color: #fff;
         }
 
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
         }
 
-        .nav-btn:hover::before {
-            width: 300px;
-            height: 300px;
+        .btn-secondary {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--border);
         }
 
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+        .btn-secondary:hover {
+            border-color: var(--ink);
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.05rem;
         }
 
         .hamburger {
             display: none;
+            background: none;
+            border: none;
             cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text);
+            width: 28px;
+            height: 20px;
+            position: relative;
         }
 
-        /* Hero Section */
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--ink);
+            position: absolute;
+            left: 0;
+            transition: 0.3s;
+        }
+
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { bottom: 0; }
+
+        /* ─── Sections ─── */
+        .section { padding: 7rem 2rem; }
+        .section-alt { background: var(--bg-alt); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 1.5px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--ink-muted);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .text-center { text-align: center; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+
+        /* ─── Hero ─── */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 2rem 4rem;
+            padding: 8rem 2rem 4rem;
             position: relative;
         }
 
         .hero-content {
-            max-width: 1200px;
             text-align: center;
-            animation: heroEntry 1s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 900px;
         }
 
-        @keyframes heroEntry {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .exclusive-badge {
+        .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1.5rem;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(34, 197, 94, 0.1));
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: var(--success);
-            font-size: 0.875rem;
+            padding: 0.5rem 1.25rem;
+            background: var(--accent-bg);
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 100px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.75rem, 7vw, 5rem);
             font-weight: 700;
-            margin-bottom: 2rem;
-            animation: pulse 2s ease infinite;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 50px;
+            letter-spacing: -2.5px;
+            line-height: 1.05;
+            margin-bottom: 1.75rem;
+            color: var(--ink);
         }
 
-        @keyframes pulse {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
-            }
-            50% { 
-                transform: scale(1.02);
-                box-shadow: 0 0 0 10px rgba(14, 165, 233, 0);
-            }
+        .hero h1 em {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            color: var(--accent);
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -2px;
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--ink-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, var(--text) 0%, var(--primary) 50%, var(--primary-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientShift 4s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-        }
-
-        .cta-container {
+        .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
         }
 
-        .cta-primary {
-            padding: 1.25rem 3rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1.125rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-primary::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
-
-        .cta-primary:hover::after {
-            transform: translateX(4px);
-        }
-
-        .cta-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
-            background: var(--primary-dark);
-        }
-
-        .cta-secondary {
-            padding: 1.25rem 3rem;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 1.125rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cta-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
-        }
-
-        /* Animated Stats */
-        .stats {
+        /* ─── Stats ─── */
+        .stats-bar {
             display: flex;
-            gap: 4rem;
             justify-content: center;
+            gap: 4rem;
             flex-wrap: wrap;
-            margin-top: 4rem;
-            padding: 2rem;
         }
 
         .stat {
             text-align: center;
-            position: relative;
-        }
-
-        .stat::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 2px;
-            background: var(--primary);
-            opacity: 0.5;
         }
 
         .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            color: var(--ink);
             display: block;
-            margin-bottom: 0.5rem;
+            line-height: 1;
+            margin-bottom: 0.35rem;
         }
 
         .stat-label {
-            color: var(--text-muted);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        /* ─── Schedule Strip ─── */
+        .schedule-strip {
+            background: var(--ink);
+            color: #fff;
+            padding: 2.5rem 2rem;
+            overflow: hidden;
+        }
+
+        .schedule-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .schedule-label {
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            opacity: 0.5;
             font-weight: 600;
         }
 
-        /* Floating elements for parallax */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
+        .schedule-blocks {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .float-element {
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.1;
-            animation: floatAnimation 20s infinite ease-in-out;
-            filter: blur(1px);
-            transform: translateZ(0);
-            will-change: transform;
+        .schedule-block {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes floatAnimation {
-            0%, 100% { 
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.05;
-            }
-            25% { 
-                transform: translateY(-30px) rotate(10deg);
-                opacity: 0.1;
-            }
-            50% { 
-                transform: translateY(20px) rotate(-5deg);
-                opacity: 0.15;
-            }
-            75% { 
-                transform: translateY(-10px) rotate(5deg);
-                opacity: 0.1;
-            }
+        .schedule-block.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
         }
 
-        /* Parallax text effect */
-        .parallax-text {
-            transform: translateZ(0);
-            will-change: transform, opacity;
-            transition: all 0.3s ease;
-        }
-
-        /* Fade in elements on scroll */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Problem Section */
-        .problem-section {
-            padding: 6rem 2rem;
-            background: var(--dark-soft);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .problem-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;            
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--urgent), transparent);
-        }
-
-        /* Dynamic gradient background */
-        .problem-section::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(239, 68, 68, 0.03) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 50%, rgba(14, 165, 233, 0.03) 0%, transparent 50%);
-            animation: gradientShift 15s ease infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .problem-section > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 4rem;
-            letter-spacing: -1px;
-        }
-
-        .problem-grid {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* ─── Problems ─── */
+        .problems-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 3rem;
         }
 
         .problem-card {
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .problem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--urgent), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .problem-card:hover::before {
-            transform: translateX(100%);
+            background: var(--bg);
+            padding: 2.5rem;
+            transition: background 0.3s;
         }
 
         .problem-card:hover {
-            transform: translateY(-5px);
-            background: rgba(239, 68, 68, 0.05);
-            border-color: var(--urgent);
-            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.1);
+            background: var(--bg-alt);
         }
 
-        .problem-icon {
-            font-size: 2.5rem;
+        .problem-number {
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 1rem;
         }
 
         .problem-title {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text);
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+            letter-spacing: -0.3px;
         }
 
-        .problem-description {
-            color: var(--text-muted);
+        .problem-desc {
             font-size: 0.95rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
         }
 
-        /* What You Get */
-        .benefits {
-            padding: 6rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        /* ─── Benefits ─── */
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
 
         .benefit-card {
             padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(14, 165, 233, 0.02));
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
             position: relative;
-            overflow: hidden;
-        }
-
-        .benefit-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .benefit-card:hover::after {
-            opacity: 1;
         }
 
         .benefit-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(14, 165, 233, 0.15);
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02));
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: transparent;
         }
 
         .benefit-icon {
-            font-size: 3rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-bg);
+            border-radius: 12px;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            display: inline-block;
-            animation: iconFloat 3s ease infinite;
-            animation-delay: calc(var(--i) * 0.2s);
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .benefit-title {
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text);
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+            letter-spacing: -0.3px;
         }
 
-        .benefit-description {
-            color: var(--text-muted);
-            line-height: 1.8;
+        .benefit-desc {
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
         }
 
         .benefit-result {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(14, 165, 233, 0.2);
-            color: var(--primary);
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.88rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            color: var(--accent);
         }
 
-        /* Social Proof */
-        .social-proof {
-            padding: 6rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Floating Particles */
-        .particles-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            bottom: -20px;
-            background: var(--primary);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: floatUp 15s infinite linear;
-        }
-
-        .particle:nth-child(1) {
-            left: 10%;
-            width: 10px;
-            height: 10px;
-            animation-delay: 0s;
-            animation-duration: 12s;
-        }
-
-        .particle:nth-child(2) {
-            left: 20%;
-            width: 6px;
-            height: 6px;
-            animation-delay: 2s;
-            animation-duration: 15s;
-        }
-
-        .particle:nth-child(3) {
-            left: 35%;
-            width: 8px;
-            height: 8px;
-            animation-delay: 4s;
-            animation-duration: 18s;
-        }
-
-        .particle:nth-child(4) {
-            left: 50%;
-            width: 12px;
-            height: 12px;
-            animation-delay: 0s;
-            animation-duration: 10s;
-        }
-
-        .particle:nth-child(5) {
-            left: 65%;
-            width: 7px;
-            height: 7px;
-            animation-delay: 3s;
-            animation-duration: 14s;
-        }
-
-        .particle:nth-child(6) {
-            left: 75%;
-            width: 10px;
-            height: 10px;
-            animation-delay: 5s;
-            animation-duration: 16s;
-        }
-
-        .particle:nth-child(7) {
-            left: 85%;
-            width: 5px;
-            height: 5px;
-            animation-delay: 1s;
-            animation-duration: 11s;
-        }
-
-        .particle:nth-child(8) {
-            left: 95%;
-            width: 9px;
-            height: 9px;
-            animation-delay: 6s;
-            animation-duration: 13s;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-120vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        .testimonial-grid {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* ─── Quotes ─── */
+        .quotes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 2;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
         }
 
-        /* Slide in from right animation */
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(100px);
-            animation: slideInFromRight 0.8s ease forwards;
-            animation-play-state: paused;
-        }
-
-        .slide-in-right.animate {
-            animation-play-state: running;
-        }
-
-        @keyframes slideInFromRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Typewriter effect */
-        .typewriter {
-            overflow: hidden;
-            white-space: normal;
-            position: relative;
-        }
-
-        .typewriter.typing::after {
-            content: '|';
-            position: absolute;
-            animation: blink 1s infinite;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .testimonial {
+        .quote-card {
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            transition: all 0.3s ease;
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            transition: all var(--transition);
         }
 
-        .testimonial:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
+        .quote-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .quote-text {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            flex: 1;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .quote-text::before {
+            content: '\201C';
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 3rem;
+            line-height: 0;
+            position: relative;
+            top: 0.5rem;
+            color: var(--accent);
+            opacity: 0.3;
+            margin-right: 0.25rem;
+        }
+
+        .quote-author {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--ink);
+        }
+
+        .quote-role {
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+        }
+
+        /* ─── Testimonials ─── */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            padding: 2rem;
+            background: var(--bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: transparent;
         }
 
         .testimonial-text {
-            font-size: 1.125rem;
-            line-height: 1.8;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
             margin-bottom: 1.5rem;
-            color: var(--text);
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .author-avatar {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: var(--primary);
+            background: var(--accent-bg);
+            color: var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: white;
-            font-size: 1.25rem;
-        }
-
-        .author-info {
-            flex: 1;
+            font-size: 0.85rem;
         }
 
         .author-name {
             font-weight: 700;
-            color: var(--text);
+            font-size: 0.9rem;
+            color: var(--ink);
         }
 
         .author-role {
-            font-size: 0.875rem;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            color: var(--ink-muted);
         }
 
-        /* Why Now */
-        .why-now {
-            padding: 6rem 2rem;
-            text-align: center;
-            background: var(--dark-soft);
+        /* ─── Founders ─── */
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .urgency-box {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02));
-            border: 2px solid var(--primary);
-            border-radius: 24px;
-            position: relative;
-            overflow: hidden;
+        .founder-card {
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
         }
 
-        .urgency-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-        }
-
-        /* Urgency counter */
-        .counter-box {
-            display: inline-block;
-            padding: 1.5rem 2rem;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--urgent);
-            border-radius: 12px;
-            margin: 2rem auto;
-            max-width: 90%;
-        }
-
-        .counter-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--urgent);
-            margin-bottom: 0.5rem;
-        }
-
-        .counter-number {
-            font-size: 2rem;
-            color: var(--text);
-            font-weight: 900;
-            line-height: 1.3;
-        }
-
-        /* Knowledge Section */
-        .knowledge-section article:hover {
-            transform: translateY(-5px);
-            background: rgba(14, 165, 233, 0.05) !important;
-            border-color: var(--primary) !important;
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
-        }
-
-        /* Social Icons Hover */
-        footer a[title]:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
-        }
-
-        /* Join CTA */
-        .join-cta {
-            padding: 6rem 2rem;
-        }
-
-        .cta-card {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.02));
-            border-radius: 24px;
-            border: 2px solid var(--primary);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            animation: ctaGlow 3s ease infinite;
-        }
-
-        @keyframes ctaGlow {
-            0%, 100% { box-shadow: 0 0 30px rgba(14, 165, 233, 0.2); }
-            50% { box-shadow: 0 0 50px rgba(14, 165, 233, 0.4); }
-        }
-
-        .membership-badge {
-            display: inline-block;
-            background: var(--success);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.875rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .membership-fee {
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .cta-list {
-            text-align: left;
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .cta-list li {
-            padding: 0.75rem 0;
+        .founder-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: var(--text);
+            margin-bottom: 1.5rem;
         }
 
-        .cta-list li::before {
-            content: '✓';
-            display: flex;
-            width: 24px;
-            height: 24px;
-            background: var(--primary);
-            color: white;
+        .founder-avatar {
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
+            background: var(--ink);
+            color: #fff;
+            display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
         }
 
-        .final-cta {
-            padding: 1.5rem 4rem;
-            background: var(--primary);
-            border: none;
-            border-radius: 12px;
-            color: white;
+        .founder-name {
             font-size: 1.25rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: ctaPulse 2s ease infinite;
+            letter-spacing: -0.3px;
+        }
+
+        .founder-title {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .founder-bio {
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+            line-height: 1.75;
+        }
+
+        /* ─── Knowledge ─── */
+        .video-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 500px;
+            height: 100%;
+            border: 0;
         }
 
-        @keyframes ctaPulse {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
-            }
-            50% { 
-                transform: scale(1.02);
-                box-shadow: 0 0 0 20px rgba(14, 165, 233, 0);
-            }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        .final-cta:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+        .article-card {
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 1.75rem;
+            transition: all var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
-        /* Footer */
+        .article-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .article-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .tag-productivity { background: var(--accent-bg); color: var(--accent); }
+        .tag-deepwork { background: #ECFDF5; color: #059669; }
+        .tag-automation { background: var(--warm-bg); color: var(--warm); }
+
+        .article-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+            line-height: 1.35;
+        }
+
+        .article-desc {
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            line-height: 1.6;
+        }
+
+        /* ─── CTA Section ─── */
+        .cta-section {
+            padding: 7rem 2rem;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 3.5rem;
+            background: #fff;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            color: var(--ink);
+            margin: 1rem 0 0.25rem;
+        }
+
+        .cta-price span {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--ink-muted);
+            letter-spacing: 0;
+        }
+
+        .cta-features {
+            list-style: none;
+            text-align: left;
+            margin: 2rem 0;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .cta-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+
+        .cta-features li::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 50%;
+            background: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 3L4.5 8.5L2 6' stroke='%234F46E5' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* ─── Footer ─── */
         footer {
             padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        footer p {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            margin-top: 0.5rem;
         }
 
         footer a {
-            color: var(--primary);
+            color: var(--accent);
             text-decoration: none;
-            transition: color 0.3s ease;
         }
 
-        footer a:hover {
-            color: var(--primary-light);
-        }
+        footer a:hover { text-decoration: underline; }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .problem-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.95);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(14, 165, 233, 0.2);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .hamburger {
-                display: block !important;
-                color: var(--text);
-            }
-            
-            .nav-btn {
-                width: 100%;
-                margin-top: 1rem;
-            }
-            
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            /* Fix dla sekcji o założycielach */
-            .founders-section > div > div:last-of-type {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Fix dla sekcji transformacji */
-            section > div > div {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-            }
-            
-            /* Padding adjustment */
-            section {
-                padding: 4rem 1rem !important;
-            }
-            
-            .cta-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .cta-list {
-                padding: 0 1rem;
-            }
-            
-            /* Text size adjustments */
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.25rem;
-                padding: 0 1rem;
-            }
-            
-            /* Stats centering */
-            .stat {
-                text-align: center;
-            }
-            
-            /* Card paddings */
-            .benefit-card, .problem-card {
-                padding: 1.5rem;
-            }
-            
-            /* Fix for overflow */
-            body {
-                overflow-x: hidden;
-            }
-            
-            .hero-content {
-                padding: 0 1rem;
-            }
-            
-            /* Button fixes */
-            .cta-container {
-                padding: 0 1rem;
-            }
-            
-            .cta-primary, .cta-secondary {
-                width: 100%;
-                padding: 1rem 2rem;
-            }
-            
-            .counter-box {
-                padding: 1.25rem 1.5rem;
-                max-width: 95%;
-            }
-            
-            .counter-text {
-                font-size: 1.25rem;
-            }
-            
-            .counter-number {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Scroll animations */
-        .scroll-reveal {
+        /* ─── Reveal animation ─── */
+        .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .scroll-reveal.active {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Cursor glow effect */
-        .glow-cursor {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
-            z-index: 9999;
-            opacity: 0;
+        /* ─── Mobile ─── */
+        @media (max-width: 900px) {
+            .problems-grid,
+            .quotes-grid,
+            .testimonials-grid,
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid,
+            .founders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                gap: 2.5rem;
+            }
+
+            .section { padding: 4.5rem 1.25rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+
+            .hero { padding: 7rem 1.25rem 3rem; min-height: auto; }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: -1.5px;
+            }
+
+            .hero-desc { font-size: 1.1rem; }
+
+            .hero-cta { flex-direction: column; align-items: center; }
+            .hero-cta .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+            .stat-number { font-size: 2.25rem; }
+
+            .schedule-blocks { gap: 0.5rem; }
+            .schedule-block { font-size: 0.75rem; padding: 0.4rem 1rem; }
+
+            .cta-box { padding: 2rem 1.5rem; }
+            .cta-price { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-mesh"></div>
-    <div class="grid-overlay"></div>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
-    <div class="glow-cursor" id="glowCursor"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
-        <div class="nav-container">
-            <div class="logo">MasterZone</div>
+        <div class="nav-inner">
+            <a href="#" class="logo">MasterZone<span class="logo-dot"></span></a>
             <div class="nav-links" id="navLinks">
-                <a href="#problems" class="nav-link">Wyzwania</a>
-                <a href="#benefits" class="nav-link">Co zyskujesz</a>
-                <a href="#knowledge" class="nav-link">Wiedza</a>
-                <a href="#founders" class="nav-link">O nas</a>
-                <a href="/blog/" class="nav-link">Blog</a>
-                <a href="/ClickUp/" class="nav-link">ClickUp</a>
-                <button class="nav-btn" onclick="goToSkool()">
-                    Chcę dołączyć!
-                </button>
+                <a href="#challenges">Wyzwania</a>
+                <a href="#benefits">Co zyskujesz</a>
+                <a href="#knowledge">Wiedza</a>
+                <a href="#founders">O nas</a>
+                <a href="/blog/">Blog</a>
+                <a href="/ClickUp/">ClickUp</a>
+                <button class="btn btn-primary" onclick="goToSkool()">Dołącz</button>
             </div>
-            <div class="hamburger" onclick="toggleMenu()" style="display: none;">☰</div>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="exclusive-badge">
-                ⚡ Gdzie przedsiębiorcy pracują razem, nie osobno
+        <div class="hero-content reveal">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Społeczność głębokiej pracy
             </div>
-            <h1>Przestań walczyć <span class="gradient-text">sam</span></h1>
-            <p class="hero-subtitle">W MasterZone pracujesz ramię w ramię z przedsiębiorcami,<br>którzy faktycznie rozumieją Twoje wyzwania.</p>
-            
-            <div class="cta-container">
-                <button class="cta-primary" onclick="goToSkool()">
+
+            <h1>Przestań pracować<br><em>sam</em></h1>
+
+            <p class="hero-desc">
+                Dołącz do przedsiębiorców, którzy codziennie pracują razem w skupieniu.
+                Kamera włączona, rozproszenia wyłączone.
+            </p>
+
+            <div class="hero-cta">
+                <button class="btn btn-primary btn-large" onclick="goToSkool()">
                     Dołącz do społeczności
                 </button>
-                <button class="cta-secondary" onclick="scrollToSection('benefits')">
-                    Pokaż mi jak to wygląda
+                <button class="btn btn-secondary btn-large" onclick="scrollToSection('benefits')">
+                    Zobacz jak to działa
                 </button>
             </div>
 
-            <div class="stats">
+            <div class="stats-bar">
                 <div class="stat">
                     <span class="stat-number" data-target="40">0</span>
-                    <span class="stat-label">Aktywnych członków</span>
+                    <span class="stat-label">Członków</span>
                 </div>
                 <div class="stat">
                     <span class="stat-number" data-target="6">0</span>
-                    <span class="stat-label">Godzin Deep Work dziennie</span>
+                    <span class="stat-label">Godzin deep work</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number" data-target="100">0</span>
-                    <span class="stat-label">% Zaangażowania grupy</span>
+                    <span class="stat-number" data-target="4">0</span>
+                    <span class="stat-label">Bloki dziennie</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Problems Section -->
-    <section class="problem-section scroll-reveal" id="problems">
-        <!-- Animated background elements -->
-        <div class="floating-elements">
-            <div class="float-element" style="top: 10%; left: 5%; animation-delay: 0s;">😤</div>
-            <div class="float-element" style="top: 30%; right: 10%; animation-delay: 1s;">🏝️</div>
-            <div class="float-element" style="bottom: 20%; left: 15%; animation-delay: 2s;">🌀</div>
-            <div class="float-element" style="bottom: 40%; right: 5%; animation-delay: 3s;">😴</div>
+    <!-- Schedule Strip -->
+    <div class="schedule-strip">
+        <div class="schedule-inner">
+            <span class="schedule-label">Bloki pracy</span>
+            <div class="schedule-blocks" id="scheduleBlocks">
+                <span class="schedule-block" data-start="9" data-end="10.5">9:00 — 10:30</span>
+                <span class="schedule-block" data-start="11" data-end="12.5">11:00 — 12:30</span>
+                <span class="schedule-block" data-start="13" data-end="14.5">13:00 — 14:30</span>
+                <span class="schedule-block" data-start="16.5" data-end="18">16:30 — 18:00</span>
+            </div>
         </div>
-        
-        <h2 class="section-title">Znasz to <span class="gradient-text" style="color: var(--urgent);">uczucie?</span></h2>
-        <div class="problem-grid">
-            <div class="problem-card">
-                <div class="problem-icon">😤</div>
-                <h3 class="problem-title">Prokrastynacja zjada Twój dzień</h3>
-                <p class="problem-description">Otwierasz laptopa o 9:00, a o 17:00 zastanawiasz się gdzie zniknął cały dzień.</p>
+    </div>
+
+    <!-- Challenges -->
+    <section class="section" id="challenges">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Znasz to?</span>
+                <h2 class="section-title">Problemy, z którymi<br>mierzysz się codziennie</h2>
             </div>
-            <div class="problem-card">
-                <div class="problem-icon">🏝️</div>
-                <h3 class="problem-title">Samotność przedsiębiorcy</h3>
-                <p class="problem-description">Nie masz z kim pogadać o biznesowych wyzwaniach. Rodzina nie rozumie, znajomi mają etat.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">🌀</div>
-                <h3 class="problem-title">Chaos zamiast systemu</h3>
-                <p class="problem-description">Każdy dzień to gaszenie pożarów. Brak planu, brak priorytów, tylko reagowanie.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">😴</div>
-                <h3 class="problem-title">Brak energii i motywacji</h3>
-                <p class="problem-description">Zaczynasz tydzień z zapałem, ale w środę już ledwo zipiesz. Weekend? Myślisz o pracy.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">🎯</div>
-                <h3 class="problem-title">Problemy ze skupieniem</h3>
-                <p class="problem-description">Rozproszenie zjada Twój fokus. Notyfikacje, maile, telefony - ciągłe przerywanie głębokiej pracy.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">🛠️</div>
-                <h3 class="problem-title">Brak systemu</h3>
-                <p class="problem-description">Działasz intuicyjnie, bez sprawdzonego systemu. My podpowiadamy lub wdrażamy prosty system, który pomoże Ci prowadzić biznes.</p>
+
+            <div class="problems-grid reveal">
+                <div class="problem-card">
+                    <div class="problem-number">01</div>
+                    <h3 class="problem-title">Prokrastynacja zjada Twój dzień</h3>
+                    <p class="problem-desc">Otwierasz laptopa o 9:00, a o 17:00 zastanawiasz się gdzie zniknął cały dzień.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">02</div>
+                    <h3 class="problem-title">Samotność przedsiębiorcy</h3>
+                    <p class="problem-desc">Nie masz z kim pogadać o biznesowych wyzwaniach. Rodzina nie rozumie, znajomi mają etat.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">03</div>
+                    <h3 class="problem-title">Chaos zamiast systemu</h3>
+                    <p class="problem-desc">Każdy dzień to gaszenie pożarów. Brak planu, brak priorytetów, tylko reagowanie.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">04</div>
+                    <h3 class="problem-title">Brak energii i motywacji</h3>
+                    <p class="problem-desc">Zaczynasz tydzień z zapałem, ale w środę już ledwo zipiesz. Weekend? Myślisz o pracy.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">05</div>
+                    <h3 class="problem-title">Problemy ze skupieniem</h3>
+                    <p class="problem-desc">Notyfikacje, maile, telefony — ciągłe przerywanie głębokiej pracy.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-number">06</div>
+                    <h3 class="problem-title">Brak systemu pracy</h3>
+                    <p class="problem-desc">Działasz intuicyjnie, bez sprawdzonego systemu, który pomoże Ci prowadzić biznes.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Transformation Stories -->
-    <section class="transformation-section scroll-reveal" style="padding: 6rem 2rem; background: linear-gradient(135deg, var(--dark), var(--dark-soft));">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <h2 class="section-title">Nie jesteś <span class="gradient-text">sam</span></h2>
-            <p style="text-align: center; font-size: 1.25rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Najlepsi przedsiębiorcy świata też zaczynali w chaosie. Różnica? Znaleźli swój system.
-            </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
-                <div style="padding: 2rem; background: rgba(14, 165, 233, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
-                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem; color: var(--text); font-style: italic;">
-                        "Pracowałem 80 godzin tygodniowo i byłem na skraju wypalenia. Dopiero gdy nauczyłem się delegować i skupiać na priorytetach, zbudowałem biznes pracując 4 godziny dziennie."
-                    </p>
-                    <p style="color: var(--primary); font-weight: 700;">— Tim Ferriss</p>
-                    <p style="color: var(--text-muted); font-size: 0.875rem;">Autor "4-godzinnego tygodnia pracy"</p>
-                </div>
-                
-                <div style="padding: 2rem; background: rgba(14, 165, 233, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
-                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem; color: var(--text); font-style: italic;">
-                        "Bez głębokiej pracy, twój dzień to seria przerw połączonych małymi fragmentami produktywności. Deep Work to supermoce w świecie rozproszenia."
-                    </p>
-                    <p style="color: var(--primary); font-weight: 700;">— Cal Newport</p>
-                    <p style="color: var(--text-muted); font-size: 0.875rem;">Profesor MIT, autor "Deep Work"</p>
-                </div>
-                
-                <div style="padding: 2rem; background: rgba(14, 165, 233, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
-                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem; color: var(--text); font-style: italic;">
-                        "Myślałem, że muszę wszystko robić sam. Największy przełom? Zrozumienie, że silna społeczność to najszybsza droga do sukcesu."
-                    </p>
-                    <p style="color: var(--primary); font-weight: 700;">— Seth Godin</p>
-                    <p style="color: var(--text-muted); font-size: 0.875rem;">Przedsiębiorca, autor bestsellerów</p>
-                </div>
+    <!-- Quotes -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Inspiracja</span>
+                <h2 class="section-title">Najlepsi też zaczynali<br>w <span class="serif">chaosie</span></h2>
+                <p class="section-subtitle mx-auto">Różnica? Znaleźli swój system i ludzi, z którymi mogli iść dalej.</p>
             </div>
-            
-            <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.02), rgba(14, 165, 233, 0.05)); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 16px; padding: 2.5rem; margin-bottom: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text);">
-                    <span style="color: var(--primary);">Historia transformacji:</span> Elon Musk
-                </h3>
-                <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text); margin-bottom: 1.5rem;">
-                    <strong>2018, wywiad:</strong> "Pracowałem 120 godzin tygodniowo. Było to bolesne. Spałem na podłodze w fabryce, nie widziałem dzieci, przyjaciół. To nie był sposób na życie."
-                </p>
-                <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text); margin-bottom: 1.5rem;">
-                    <strong>Zmiana:</strong> Musk wprowadził "time boxing" - dzieli dzień na 5-minutowe bloki. "Domyślna odpowiedź na spotkanie to 'nie'. Jeśli coś nie jest krytyczne dla misji, nie dostaję czasu w kalendarzu."
-                </p>
-                <p style="font-size: 1.125rem; line-height: 1.8; color: var(--text);">
-                    <strong>Obecnie:</strong> Pracuje "tylko" 80-90 godzin tygodniowo, ale każda minuta jest zaplanowana. Poniedziałki i piątki w SpaceX, wtorki i środy w Tesla, czwartki w Neuralink i The Boring Company. "To nie ilość godzin się liczy, ale intensywność fokusa w każdym bloku czasu."
-                </p>
-            </div>
-            
-            <div style="text-align: center; padding: 3rem; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; max-width: 900px; margin: 0 auto;">
-                <h3 style="font-size: 1.75rem; margin-bottom: 1rem; color: var(--text);">
-                    <span class="gradient-text">Twoja kolej</span> na transformację
-                </h3>
-                <p style="font-size: 1.125rem; color: var(--text-muted); margin-bottom: 2rem;">
-                    Każdy z nich zaczynał dokładnie tam, gdzie Ty jesteś teraz.<br>
-                    Chaos, przytłoczenie, samotność w biznesie.<br>
-                    <strong style="color: var(--text);">Zmienili to dzięki systemowi i wsparciu innych.</strong>
-                </p>
-                <button class="cta-secondary" onclick="scrollToSection('benefits')">
-                    Zobacz jak MasterZone może Ci pomóc →
-                </button>
-            </div>
-        </div>
-    </section>
 
-    <!-- What You Get -->
-    <section class="benefits scroll-reveal" id="benefits">
-        <h2 class="section-title">Co <span class="gradient-text">faktycznie</span> dostaniesz</h2>
-        <div class="benefits-grid">
-            <div class="benefit-card" style="--i: 0;">
-                <span class="benefit-icon">🎯</span>
-                <h3 class="benefit-title">Regularne sesje skupienia</h3>
-                <p class="benefit-description">Spotykamy się online w grupie do wspólnej pracy. Kamera włączona, mikrofon wyłączony - czysta produktywność w towarzystwie innych.</p>
-                <div class="benefit-result">→ Skończysz z prokrastynacją raz na zawsze</div>
-            </div>
-            <div class="benefit-card" style="--i: 1;">
-                <span class="benefit-icon">👥</span>
-                <h3 class="benefit-title">Zamknięta społeczność praktyków</h3>
-                <p class="benefit-description">To nie jest anonimowa grupa na 1000 osób. Tu każdy zna każdego po imieniu, dzielimy się sukcesami i wyzwaniami.</p>
-                <div class="benefit-result">→ Koniec z samotnością w biznesie</div>
-            </div>
-            <div class="benefit-card" style="--i: 2;">
-                <span class="benefit-icon">🗓️</span>
-                <h3 class="benefit-title">Wspólne planowanie tygodnia</h3>
-                <p class="benefit-description">Regularne sesje planowania z grupą. OKRy, priorytety, deadliny — wszystko na miejscu. 4 sesje miesięcznie.</p>
-                <div class="benefit-result">→ Zawsze wiesz co robić dalej</div>
-            </div>
-            <div class="benefit-card" style="--i: 3;">
-                <span class="benefit-icon">🚨</span>
-                <h3 class="benefit-title">Błyskawiczne wsparcie</h3>
-                <p class="benefit-description">Utknąłeś? Napisz bezpośrednio do twórców lub na społeczność. Mateusz, Radek lub ktoś z grupy odpowie w ciągu 15 minut.</p>
-                <div class="benefit-result">→ Nigdy nie zostaniesz sam z problemem</div>
-            </div>
-            <div class="benefit-card" style="--i: 4;">
-                <span class="benefit-icon">📚</span>
-                <h3 class="benefit-title">Sprawdzone systemy pracy</h3>
-                <p class="benefit-description">Dostęp do kursów, PDF-ów, checklistów i automatyzacji. Wszystko czego używamy w naszych firmach.</p>
-                <div class="benefit-result">→ Wdrożysz to co faktycznie działa</div>
-            </div>
-            <div class="benefit-card" style="--i: 5;">
-                <span class="benefit-icon">⚡</span>
-                <h3 class="benefit-title">Energia grupy</h3>
-                <p class="benefit-description">Kiedy widzisz jak inni klepią kod o 9 rano, sam siadasz do roboty. Presja społeczna działa cuda.</p>
-                <div class="benefit-result">→ Zrobisz 3x więcej niż sam</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof -->
-    <section class="social-proof scroll-reveal">
-        <!-- Floating particles -->
-        <div class="particles-container">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-        </div>
-        
-        <h2 class="section-title">Co mówią <span class="gradient-text">członkowie</span></h2>
-        <div class="testimonial-grid">
-            <div class="testimonial slide-in-right">
-                <p class="testimonial-text typewriter">"Pierwszy raz od lat faktycznie kończę dzień z poczuciem, że coś zrobiłem. Deep Work to game changer."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">MK</div>
-                    <div class="author-info">
-                        <div class="author-name">Michał K.</div>
-                        <div class="author-role">Agencja marketingowa</div>
+            <div class="quotes-grid reveal">
+                <div class="quote-card">
+                    <p class="quote-text">Pracowałem 80 godzin tygodniowo i byłem na skraju wypalenia. Dopiero gdy nauczyłem się delegować i skupiać na priorytetach, zbudowałem biznes pracując 4 godziny dziennie.</p>
+                    <div>
+                        <div class="quote-author">Tim Ferriss</div>
+                        <div class="quote-role">Autor "4-godzinnego tygodnia pracy"</div>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial slide-in-right" style="animation-delay: 0.3s;">
-                <p class="testimonial-text typewriter">"Kameralna grupa to idealna liczba. Znamy się, pomagamy sobie, a Mateusz i Radek są zawsze dostępni."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">AS</div>
-                    <div class="author-info">
-                        <div class="author-name">Anna S.</div>
-                        <div class="author-role">E-commerce</div>
+                <div class="quote-card">
+                    <p class="quote-text">Bez głębokiej pracy, twój dzień to seria przerw połączonych małymi fragmentami produktywności. Deep Work to supermoce w świecie rozproszenia.</p>
+                    <div>
+                        <div class="quote-author">Cal Newport</div>
+                        <div class="quote-role">Profesor, autor "Deep Work"</div>
                     </div>
                 </div>
-            </div>
-            <div class="testimonial slide-in-right" style="animation-delay: 0.6s;">
-                <p class="testimonial-text typewriter">"Przestałem się czuć jak samotna wyspa. Mam zespół, mimo że prowadzę JDG."</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">PL</div>
-                    <div class="author-info">
-                        <div class="author-name">Piotr L.</div>
-                        <div class="author-role">Konsulting IT</div>
+                <div class="quote-card">
+                    <p class="quote-text">Myślałem, że muszę wszystko robić sam. Największy przełom? Zrozumienie, że silna społeczność to najszybsza droga do sukcesu.</p>
+                    <div>
+                        <div class="quote-author">Seth Godin</div>
+                        <div class="quote-role">Przedsiębiorca, autor bestsellerów</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Founders Section -->
-    <section class="founders-section scroll-reveal" id="founders" style="padding: 6rem 2rem; background: var(--dark-soft);">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <h2 class="section-title">Kto prowadzi <span class="gradient-text">MasterZone?</span></h2>
-            <p style="text-align: center; font-size: 1.25rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Dwóch przedsiębiorców, którzy przeszli drogę od chaosu do systemu
-            </p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; max-width: 1000px; margin: 0 auto;">
-                <div style="padding: 2.5rem; background: rgba(14, 165, 233, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div style="width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 1.5rem;">MD</div>
+    <!-- Benefits -->
+    <section class="section" id="benefits">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Co zyskujesz</span>
+                <h2 class="section-title">Wszystko, czego potrzebujesz<br>do <span class="serif">głębokiej</span> pracy</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Regularne sesje skupienia</h3>
+                    <p class="benefit-desc">Spotykamy się online w grupie do wspólnej pracy. Kamera włączona, mikrofon wyłączony — czysta produktywność w towarzystwie innych.</p>
+                    <div class="benefit-result">Skończysz z prokrastynacją raz na zawsze</div>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">👥</div>
+                    <h3 class="benefit-title">Zamknięta społeczność praktyków</h3>
+                    <p class="benefit-desc">To nie jest anonimowa grupa na 1000 osób. Tu każdy zna każdego po imieniu, dzielimy się sukcesami i wyzwaniami.</p>
+                    <div class="benefit-result">Koniec z samotnością w biznesie</div>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">🗓</div>
+                    <h3 class="benefit-title">Wspólne planowanie tygodnia</h3>
+                    <p class="benefit-desc">Regularne sesje planowania z grupą. OKRy, priorytety, deadliny — wszystko na miejscu. 4 sesje miesięcznie.</p>
+                    <div class="benefit-result">Zawsze wiesz co robić dalej</div>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">💬</div>
+                    <h3 class="benefit-title">Błyskawiczne wsparcie</h3>
+                    <p class="benefit-desc">Utknąłeś? Napisz bezpośrednio do twórców lub na społeczność. Mateusz, Radek lub ktoś z grupy odpowie w ciągu 15 minut.</p>
+                    <div class="benefit-result">Nigdy nie zostaniesz sam z problemem</div>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">📚</div>
+                    <h3 class="benefit-title">Sprawdzone systemy pracy</h3>
+                    <p class="benefit-desc">Dostęp do kursów, PDF-ów, checklistów i automatyzacji. Wszystko czego używamy w naszych firmach.</p>
+                    <div class="benefit-result">Wdrożysz to co faktycznie działa</div>
+                </div>
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">Energia grupy</h3>
+                    <p class="benefit-desc">Kiedy widzisz jak inni pracują o 9 rano, sam siadasz do roboty. Presja społeczna działa cuda.</p>
+                    <div class="benefit-result">Zrobisz 3x więcej niż sam</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Opinie</span>
+                <h2 class="section-title">Co mówią <span class="serif">członkowie</span></h2>
+            </div>
+
+            <div class="testimonials-grid reveal">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Pierwszy raz od lat faktycznie kończę dzień z poczuciem, że coś zrobiłem. Deep Work to game changer."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MK</div>
                         <div>
-                            <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text);">Mateusz Dudek</h3>
-                            <p style="color: var(--primary); font-size: 0.875rem; font-weight: 600;">Współzałożyciel</p>
+                            <div class="author-name">Michał K.</div>
+                            <div class="author-role">Agencja marketingowa</div>
                         </div>
                     </div>
-                    <p style="color: var(--text); line-height: 1.8; margin-bottom: 1rem;">
-                        Przedsiębiorca od 2019 roku, prowadzi kilka firm i projekty automatyzacji procesów biznesowych. Współautor książki "Przygody przedsiębiorców".
-                    </p>
-                    <p style="color: var(--text-muted); line-height: 1.8;">
-                        Aktywny członek społeczności przedsiębiorczych, pasjonat rozwoju osobistego i produktywności. W MasterZone dzieli się praktyczną wiedzą o budowaniu systemów w małych firmach.
-                    </p>
                 </div>
-                
-                <div style="padding: 2.5rem; background: rgba(14, 165, 233, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; transition: all 0.3s ease;">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div style="width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 1.5rem;">RP</div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Kameralna grupa to idealna liczba. Znamy się, pomagamy sobie, a Mateusz i Radek są zawsze dostępni."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AS</div>
                         <div>
-                            <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text);">Radek Pustelnik</h3>
-                            <p style="color: var(--primary); font-size: 0.875rem; font-weight: 600;">Współzałożyciel</p>
+                            <div class="author-name">Anna S.</div>
+                            <div class="author-role">E-commerce</div>
                         </div>
                     </div>
-                    <p style="color: var(--text); line-height: 1.8; margin-bottom: 1rem;">
-                        Certyfikowany coach biznesowy, specjalizuje się we wspieraniu przedsiębiorców w budowaniu zrównoważonych biznesów.
-                    </p>
-                    <p style="color: var(--text-muted); line-height: 1.8;">
-                        Prowadzi indywidualne sesje coachingowe i warsztaty strategiczne. W MasterZone odpowiada za mentoring i cotygodniowe sesje planowania.
-                    </p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Przestałem się czuć jak samotna wyspa. Mam zespół, mimo że prowadzę JDG."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">PL</div>
+                        <div>
+                            <div class="author-name">Piotr L.</div>
+                            <div class="author-role">Konsulting IT</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(14, 165, 233, 0.05); border-radius: 12px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                <p style="font-size: 1.125rem; color: var(--text);">
-                    <strong>"Stworzyliśmy MasterZone, bo sami przeszliśmy przez chaos samotnego przedsiębiorcy.</strong><br>
-                    <span style="color: var(--text-muted);">Wiemy jak ważne jest wsparcie i dobry system."</span>
+        </div>
+    </section>
+
+    <!-- Founders -->
+    <section class="section" id="founders">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">O nas</span>
+                <h2 class="section-title">Kto prowadzi <span class="serif">MasterZone</span></h2>
+                <p class="section-subtitle mx-auto">Dwóch przedsiębiorców, którzy przeszli drogę od chaosu do systemu.</p>
+            </div>
+
+            <div class="founders-grid reveal">
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div class="founder-avatar">MD</div>
+                        <div>
+                            <div class="founder-name">Mateusz Dudek</div>
+                            <div class="founder-title">Współzałożyciel</div>
+                        </div>
+                    </div>
+                    <p class="founder-bio">Przedsiębiorca od 2019 roku, prowadzi kilka firm i projekty automatyzacji procesów biznesowych. Współautor książki "Przygody przedsiębiorców". W MasterZone dzieli się praktyczną wiedzą o budowaniu systemów w małych firmach.</p>
+                </div>
+                <div class="founder-card">
+                    <div class="founder-header">
+                        <div class="founder-avatar">RP</div>
+                        <div>
+                            <div class="founder-name">Radek Pustelnik</div>
+                            <div class="founder-title">Współzałożyciel</div>
+                        </div>
+                    </div>
+                    <p class="founder-bio">Certyfikowany coach biznesowy, specjalizuje się we wspieraniu przedsiębiorców w budowaniu zrównoważonych biznesów. W MasterZone odpowiada za mentoring i cotygodniowe sesje planowania.</p>
+                </div>
+            </div>
+
+            <div class="text-center reveal" style="margin-top: 2.5rem;">
+                <p style="font-size: 1.1rem; color: var(--ink-soft); max-width: 600px; margin: 0 auto; font-style: italic;" class="serif">
+                    "Stworzyliśmy MasterZone, bo sami przeszliśmy przez chaos samotnego przedsiębiorcy. Wiemy jak ważne jest wsparcie i dobry system."
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Why Join -->
-    <section class="why-now scroll-reveal">
-        <div class="urgency-box" style="border-color: var(--primary); margin: 0 auto; max-width: 800px; width: 90%;">
-            <h2 class="urgency-title">Dlaczego warto dołączyć?</h2>
-            <p style="font-size: 1.25rem; margin-bottom: 1.5rem; padding: 0 1rem;">
-                Pracowanie samemu jest trudne. Razem możemy więcej.
-            </p>
-            <div class="counter-box" style="background: rgba(14, 165, 233, 0.1); border-color: var(--primary);">
-                <p class="counter-text" style="color: var(--text);">W społeczności czeka na Ciebie:</p>
-                <p class="counter-number" style="color: var(--primary);">Społeczność gotowa pomóc</p>
+    <!-- Knowledge -->
+    <section class="section section-alt" id="knowledge">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Wiedza</span>
+                <h2 class="section-title">Centrum <span class="serif">wiedzy</span></h2>
+                <p class="section-subtitle mx-auto">Filmy, artykuły i praktyczne porady o produktywności.</p>
             </div>
-            <p style="margin-top: 1.5rem; color: var(--text-muted); padding: 0 1rem;">
-                Dołącz teraz i już w poniedziałek zacznij pracować z grupą, która Cię wesprze.
-            </p>
+
+            <div class="video-container reveal">
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/qpI-Ic88ZZQ"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 1.5rem;" class="reveal">
+                <a href="https://www.youtube.com/@masterzonepro" target="_blank" class="btn btn-secondary" style="font-size: 0.85rem;">
+                    Subskrybuj kanał YouTube
+                </a>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.3px;" class="reveal">Najnowsze artykuły</h3>
+
+                <div class="articles-grid reveal">
+                    <a href="#" class="article-card">
+                        <span class="article-tag tag-productivity">Produktywność</span>
+                        <h4 class="article-title">Jak zacząć dzień o 5 rano i nie zwariować</h4>
+                        <p class="article-desc">Metoda małych kroków, która pozwoli Ci dołączyć do klubu 5AM bez szoku dla organizmu.</p>
+                    </a>
+                    <a href="#" class="article-card">
+                        <span class="article-tag tag-deepwork">Deep Work</span>
+                        <h4 class="article-title">Deep Work: Kompletny przewodnik</h4>
+                        <p class="article-desc">Cal Newport miał rację. Głęboka praca to supermoce w świecie pełnym rozpraszaczy.</p>
+                    </a>
+                    <a href="#" class="article-card">
+                        <span class="article-tag tag-automation">Automatyzacja</span>
+                        <h4 class="article-title">5 automatyzacji, które zaoszczędzą Ci 10h/tydzień</h4>
+                        <p class="article-desc">Proste automatyzacje, które może wdrożyć każdy przedsiębiorca w jeden weekend.</p>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Knowledge Center -->
-    <section class="knowledge-section scroll-reveal" id="knowledge">
-        <div style="max-width: 1400px; margin: 0 auto; padding: 6rem 2rem;">
-            <h2 class="section-title">Centrum <span class="gradient-text">Wiedzy</span></h2>
-            <p style="text-align: center; font-size: 1.25rem; color: var(--text-muted); margin-bottom: 4rem; max-width: 700px; margin-left: auto; margin-right: auto;">
-                Filmy, artykuły i praktyczne porady o produktywności
-            </p>
-            
-            <!-- YouTube Section -->
-            <div style="margin-bottom: 5rem;">
-                <h3 style="font-size: 2rem; margin-bottom: 2rem; text-align: center; color: var(--text);">
-                    <span style="color: #FF0000;">▶</span> Najnowsze na YouTube
-                </h3>
-                <div style="max-width: 900px; margin: 0 auto; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 1rem; overflow: hidden;">
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
-                        <iframe 
-                            src="https://www.youtube.com/embed/qpI-Ic88ZZQ" 
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div style="text-align: center; margin-top: 1.5rem;">
-                        <a href="https://www.youtube.com/@masterzonepro" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 2rem; background: #FF0000; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
-                            <span>▶</span> Subskrybuj nasz kanał
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Articles Section -->
-            <div>
-                <h3 style="font-size: 2rem; margin-bottom: 2rem; text-align: center; color: var(--text);">
-                    📚 Najnowsze artykuły
-                </h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
-                    <!-- Article 1 -->
-                    <article style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; cursor: pointer;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                            <span style="background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">PRODUKTYWNOŚĆ</span>
-                            <span style="color: var(--text-muted); font-size: 0.875rem;">5 min czytania</span>
-                        </div>
-                        <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text);">Jak zacząć dzień o 5 rano i nie zwariować</h4>
-                        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">Metoda małych kroków, która pozwoli Ci dołączyć do klubu 5AM bez szoku dla organizmu. Sprawdzone techniki od przedsiębiorców...</p>
-                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Czytaj więcej →</a>
-                    </article>
-                    
-                    <!-- Article 2 -->
-                    <article style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; cursor: pointer;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                            <span style="background: var(--success); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">DEEP WORK</span>
-                            <span style="color: var(--text-muted); font-size: 0.875rem;">8 min czytania</span>
-                        </div>
-                        <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text);">Deep Work: Kompletny przewodnik</h4>
-                        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">Cal Newport miał rację. Głęboka praca to supermoce w świecie pełnym rozpraszaczy. Oto jak wdrożyć ją w swojej firmie...</p>
-                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Czytaj więcej →</a>
-                    </article>
-                    
-                    <!-- Article 3 -->
-                    <article style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 2rem; transition: all 0.3s ease; cursor: pointer;">
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                            <span style="background: var(--warning); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">AUTOMATYZACJA</span>
-                            <span style="color: var(--text-muted); font-size: 0.875rem;">10 min czytania</span>
-                        </div>
-                        <h4 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text);">5 automatyzacji, które zaoszczędzą Ci 10h/tydzień</h4>
-                        <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">Nie musisz być programistą. Te proste automatyzacje może wdrożyć każdy przedsiębiorca w jeden weekend...</p>
-                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Czytaj więcej →</a>
-                    </article>
-                </div>
-                
-                <div style="text-align: center;">
-                    <p style="color: var(--text-muted); font-size: 1.125rem;">
-                        Więcej wartościowych treści już wkrótce...
+    <!-- CTA -->
+    <section class="cta-section" id="join">
+        <div class="container">
+            <div class="cta-box reveal">
+                <span class="section-label" style="justify-content: center;">Dołącz do MasterZone</span>
+                <h2 class="section-title text-center" style="margin-bottom: 0.5rem;">Pracuj z najlepszymi</h2>
+                <p style="color: var(--ink-muted); text-align: center; margin-bottom: 0.5rem;">Społeczność, która Cię wspiera.</p>
+
+                <div class="cta-price text-center">97 zł<span>/miesiąc</span></div>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 2rem;">Anulujesz kiedy chcesz. Bez umów.</p>
+
+                <ul class="cta-features">
+                    <li>Osobista sesja startowa z Mateuszem lub Radkiem (30 min, 1-na-1)</li>
+                    <li>Regularne sesje Deep Work online — 4 bloki dziennie</li>
+                    <li>Wspólne planowanie tygodnia</li>
+                    <li>Błyskawiczne wsparcie od twórców i społeczności</li>
+                    <li>Pełna biblioteka kursów i narzędzi</li>
+                    <li>Kwartalne warsztaty strategiczne</li>
+                    <li>Dostęp do ekskluzywnej społeczności przedsiębiorców</li>
+                    <li>Bezpośredni mentoring od praktyków biznesu</li>
+                </ul>
+
+                <div class="text-center">
+                    <button class="btn btn-primary btn-large" onclick="goToSkool()" style="width: 100%; max-width: 360px; justify-content: center;">
+                        Dołącz do MasterZone
+                    </button>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ink-muted);">
+                        Przejdziesz na Skool.com, gdzie możesz zajrzeć do grupy
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="join-cta scroll-reveal">
-        <div class="cta-card">
-            <div class="membership-badge">Dołącz do MasterZone</div>
-            <h2 class="section-title" style="margin-bottom: 1rem;">Pracuj z <span class="gradient-text">najlepszymi</span></h2>
-            <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem;">
-                MasterZone to miejsce, gdzie przedsiębiorcy wspierają się nawzajem.
-            </p>
-            <div class="membership-fee">
-                97 zł<span style="font-size: 1.5rem; color: var(--text-muted);">/miesiąc</span>
-            </div>
-            <ul class="cta-list">
-                <li>✨ Osobista sesja startowa z Mateuszem lub Radkiem (30 min, 1-na-1)</li>
-                <li>🎯 Regularne sesje Deep Work online</li>
-                <li>📅 Planowanie tygodnia w piątki i soboty</li>
-                <li>💬 Błyskawiczne wsparcie od twórców i społeczności (odpowiedź w 15 min)</li>
-                <li>📚 Pełna biblioteka kursów i narzędzi</li>
-                <li>🚀 Kwartalne warsztaty strategiczne</li>
-                <li>👥 Dostęp do ekskluzywnej społeczności przedsiębiorców</li>
-                <li>🎓 Bezpośredni mentoring od praktyków biznesu</li>
-            </ul>
-            <button class="final-cta" onclick="goToSkool()">
-                Zobacz jak wygląda nasza społeczność →
-            </button>
-            <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.875rem;">
-                Przejdziesz na Skool.com gdzie możesz zajrzeć do grupy<br>
-                Dołączenie zajmuje tylko chwilę
-            </p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
-            <a href="https://www.youtube.com/@masterzonepro" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 50%; transition: all 0.3s ease;" title="YouTube">
-                <span style="font-size: 1.5rem;">▶</span>
-            </a>
-            <a href="https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 50%; transition: all 0.3s ease;" title="Skool">
-                <span style="font-size: 1.5rem;">S</span>
-            </a>
-            <a href="mailto:kontakt@masterzone.edu.pl" style="display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 50%; transition: all 0.3s ease;" title="Email">
-                <span style="font-size: 1.5rem;">✉</span>
-            </a>
+        <div class="footer-links">
+            <a href="https://www.youtube.com/@masterzonepro" target="_blank" title="YouTube">YT</a>
+            <a href="https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b" target="_blank" title="Skool">S</a>
+            <a href="mailto:kontakt@masterzone.edu.pl" title="Email">@</a>
         </div>
-        <p style="color: var(--text-muted);">© 2026 MasterZone | Stworzone z ❤️ przez Mateusza Dudka i Radka Pustelnika</p>
-        <p style="color: var(--text-muted); margin-top: 1rem;">
-            Społeczność działa na <a href="https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b" target="_blank">Skool.com/masterzone</a>
-        </p>
-        <p style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.875rem;">
-            Pytania? Napisz: kontakt@masterzone.edu.pl
-        </p>
+        <p>&copy; 2026 MasterZone &middot; Stworzone przez Mateusza Dudka i Radka Pustelnika</p>
+        <p>Społeczność działa na <a href="https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b" target="_blank">Skool.com/masterzone</a></p>
+        <p>Pytania? <a href="mailto:kontakt@masterzone.edu.pl">kontakt@masterzone.edu.pl</a></p>
     </footer>
 
     <script>
-        // Simplified typewriter effect
-        function startTypewriter() {
-            const testimonials = document.querySelectorAll('.typewriter');
-            
-            testimonials.forEach((element, index) => {
-                const text = element.textContent;
-                element.textContent = '';
-                element.style.opacity = '1';
-                
-                setTimeout(() => {
-                    let i = 0;
-                    const typing = setInterval(() => {
-                        if (i < text.length) {
-                            element.textContent += text.charAt(i);
-                            i++;
-                        } else {
-                            clearInterval(typing);
-                        }
-                    }, 30);
-                }, index * 500);
-            });
-        }
-
-        // Simplified slide animation
-        function startSlideAnimations() {
-            const testimonials = document.querySelectorAll('.slide-in-right');
-            testimonials.forEach((element, index) => {
-                setTimeout(() => {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateX(0)';
-                }, index * 300);
-            });
-        }
-
-        // Check if element is in viewport
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return rect.top < window.innerHeight && rect.bottom > 0;
-        }
-
-        // Handle scroll animations
-        let testimonialsAnimated = false;
-        function handleScrollAnimations() {
-            const testimonialSection = document.querySelector('.social-proof');
-            
-            if (testimonialSection && isInViewport(testimonialSection) && !testimonialsAnimated) {
-                testimonialsAnimated = true;
-                startSlideAnimations();
-                setTimeout(startTypewriter, 500);
-            }
-        }
-
-        // Add scroll listener
-        window.addEventListener('scroll', handleScrollAnimations);
-        
-        // Check on load
-        window.addEventListener('load', () => {
-            setTimeout(handleScrollAnimations, 1000);
-        });
-
-        // Toggle mobile menu
+        // ─── Navigation ───
         function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
         }
-        
-        // Close menu when clicking a link
-        document.querySelectorAll('.nav-link').forEach(link => {
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('active');
             });
         });
 
-        // Smooth scroll
         function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Go to Skool
         function goToSkool() {
             window.open('https://www.skool.com/masterzone/about?ref=00c37b2b74594e348dacff466c2e795b', '_blank');
         }
 
-        // Navbar scroll effect
+        // Navbar scroll
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
 
-            // Reveal animations
-            const reveals = document.querySelectorAll('.scroll-reveal');
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        });
-
-        // Parallax effect for particles
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const particles = document.querySelectorAll('.particle');
-            
-            particles.forEach((particle, index) => {
-                const speed = 0.2 + (index * 0.05);
-                particle.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
-
-        // Parallax effect for floating elements
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.float-element');
-            
-            parallaxElements.forEach((element, index) => {
-                const speed = 0.5 + (index * 0.1);
-                const yPos = -(scrolled * speed);
-                const opacity = Math.max(0.05, 0.2 - (scrolled * 0.0005));
-                
-                element.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.05}deg)`;
-                element.style.opacity = opacity;
-            });
-            
-            // Fade effect for problem cards
-            const problemCards = document.querySelectorAll('.problem-card');
-            problemCards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                if (rect.top < windowHeight && rect.bottom > 0) {
-                    const visibility = 1 - (rect.top / windowHeight);
-                    card.style.transform = `translateY(${(1 - visibility) * 20}px)`;
-                    card.style.opacity = Math.min(1, visibility + 0.3);
-                }
-            });
-        });
-
-        // Advanced scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+        // ─── Reveal on scroll ───
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
+                    // Stagger children if they exist
+                    const children = entry.target.querySelectorAll('.problem-card, .benefit-card, .quote-card, .testimonial-card, .article-card, .founder-card');
+                    if (children.length > 0) {
+                        children.forEach((child, idx) => {
+                            child.style.opacity = '0';
+                            child.style.transform = 'translateY(16px)';
+                            child.style.transition = `opacity 0.6s ${idx * 0.08}s cubic-bezier(0.16,1,0.3,1), transform 0.6s ${idx * 0.08}s cubic-bezier(0.16,1,0.3,1)`;
+                            requestAnimationFrame(() => {
+                                child.style.opacity = '1';
+                                child.style.transform = 'translateY(0)';
+                            });
+                        });
+                    }
                     entry.target.classList.add('visible');
-                    
-                    // Stagger animation for children
-                    const children = entry.target.querySelectorAll('.problem-card, .benefit-card');
-                    children.forEach((child, index) => {
-                        setTimeout(() => {
-                            child.style.opacity = '1';
-                            child.style.transform = 'translateY(0)';
-                        }, index * 100);
-                    });
+                    revealObserver.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-        // Observe all sections
-        document.querySelectorAll('.problem-section, .benefits, .transformation-section').forEach(section => {
-            scrollObserver.observe(section);
-        });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // Animated counters
+        // ─── Animated counters ───
         function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
+            document.querySelectorAll('.stat-number').forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target'));
-                const increment = target / 50;
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = Math.ceil(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                // Start animation when in viewport
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            updateCounter();
+                            let current = 0;
+                            const increment = target / 40;
+                            const update = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.textContent = Math.ceil(current);
+                                    requestAnimationFrame(update);
+                                } else {
+                                    counter.textContent = target;
+                                }
+                            };
+                            update();
                             observer.unobserve(entry.target);
                         }
                     });
                 });
-                
                 observer.observe(counter);
             });
         }
 
-        // Cursor glow effect
-        const glowCursor = document.getElementById('glowCursor');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
+        // ─── Schedule highlight ───
+        function highlightCurrentBlock() {
+            const now = new Date();
+            const hours = now.getHours() + now.getMinutes() / 60;
+            const day = now.getDay(); // 0=Sun
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            glowCursor.style.opacity = '1';
-        });
-
-        document.addEventListener('mouseleave', () => {
-            glowCursor.style.opacity = '0';
-        });
-
-        // Smooth cursor animation
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.1;
-            cursorY += (mouseY - cursorY) * 0.1;
-            
-            glowCursor.style.left = cursorX + 'px';
-            glowCursor.style.top = cursorY + 'px';
-            
-            requestAnimationFrame(animateCursor);
+            document.querySelectorAll('.schedule-block').forEach(block => {
+                const start = parseFloat(block.dataset.start);
+                const end = parseFloat(block.dataset.end);
+                const isWeekday = day >= 1 && day <= 5;
+                block.classList.toggle('active', isWeekday && hours >= start && hours < end);
+            });
         }
 
-        // Interactive hover effects on cards
-        document.querySelectorAll('.benefit-card, .problem-card, .testimonial').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
-                card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(14, 165, 233, 0.1), transparent 60%)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.background = '';
-            });
-        });
-
-        // Initialize all animations
-        window.addEventListener('load', () => {
-            // Initialize counters
-            animateCounters();
-            animateCursor();
-            
-            // Force check for testimonials after page load
-            setTimeout(() => {
-                const testimonials = document.querySelectorAll('.slide-in-right');
-                console.log('Found testimonials:', testimonials.length);
-                
-                testimonials.forEach((testimonial, index) => {
-                    // Check if visible on load
-                    const rect = testimonial.getBoundingClientRect();
-                    if (rect.top < window.innerHeight && rect.bottom > 0) {
-                        testimonial.classList.add('animate');
-                        
-                        const textElement = testimonial.querySelector('.typewriter');
-                        if (textElement) {
-                            const originalText = textElement.textContent;
-                            setTimeout(() => {
-                                typeWriter(textElement, originalText);
-                            }, index * 400 + 500);
-                        }
-                    }
-                });
-                
-                // Also check particles
-                const particles = document.querySelectorAll('.particle');
-                console.log('Found particles:', particles.length);
-            }, 500);
-        });
-        // Fetch live member count from stats.json
+        // ─── Live member count ───
         async function updateMemberCount() {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/stats.json?t=' + Date.now());
-
-                if (!response.ok) {
-                    console.log('stats.json not found, using default count');
-                    return;
-                }
-                
+                if (!response.ok) return;
                 const data = await response.json();
-                const memberCount = data.memberCount;
-                
-                console.log('✅ Live member count from Apify:', memberCount);
-                
-                // Update the first stat (Aktywnych członków)
-                const firstStatNumber = document.querySelectorAll('.stat-number')[0];
-                
-                if (firstStatNumber && memberCount) {
-                    // Update data-target attribute
-                    firstStatNumber.setAttribute('data-target', memberCount);
-                    
-                    console.log('✅ Member count updated to:', memberCount);
+                if (data.memberCount) {
+                    const el = document.querySelectorAll('.stat-number')[0];
+                    if (el) el.setAttribute('data-target', data.memberCount);
                 }
-                
-            } catch (error) {
-                console.error('Error loading member count:', error);
-                // Fallback to default value (22)
+            } catch (e) {
+                // fallback to default
             }
         }
 
-        // Call on page load
-        updateMemberCount();
+        // ─── Init ───
+        window.addEventListener('load', () => {
+            updateMemberCount().then(animateCounters);
+            highlightCurrentBlock();
+            setInterval(highlightCurrentBlock, 60000);
+        });
     </script>
 </body>
 </html>
