@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co dalej? — Sabotażyści Mentalni | MasterZone</title>
+    <meta name="description" content="Dzięki za udział w warsztacie! Wybierz swoją drogę: bezpłatna konsultacja z Marcinem Ruskiem lub społeczność MasterZone.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #141414;
+            --text: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --accent: #e8443a;
+            --accent-hover: #ff5a50;
+            --accent-glow: rgba(232, 68, 58, 0.3);
+            --green: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.25);
+            --border: #2a2a2a;
+            --radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero > * { position: relative; z-index: 1; }
+
+        .badge {
+            display: inline-block;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 32px;
+        }
+
+        .badge span { color: var(--green); }
+
+        h1 {
+            font-size: clamp(2.2rem, 6vw, 3.4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        h1 .highlight { color: var(--accent); }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* ===== PATHS GRID ===== */
+        .paths {
+            padding: 0 0 60px;
+        }
+
+        .paths-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .path-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s;
+        }
+
+        .path-card:hover {
+            border-color: #3a3a3a;
+        }
+
+        .path-card.accent { border-top: 3px solid var(--accent); }
+        .path-card.green { border-top: 3px solid var(--green); }
+
+        .path-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .path-card.accent .path-label { color: var(--accent); }
+        .path-card.green .path-label { color: var(--green); }
+
+        .path-card h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .path-card .desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .path-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .path-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .path-list li .icon {
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            min-width: 8px;
+            border-radius: 50%;
+            margin-top: 7px;
+        }
+
+        .path-card.accent .path-list li .icon { background: var(--accent); }
+        .path-card.green .path-list li .icon { background: var(--green); }
+
+        .path-list li strong {
+            color: var(--text);
+        }
+
+        /* ===== STEPS (compact) ===== */
+        .path-steps {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+        }
+
+        .path-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #fff;
+            margin-top: 1px;
+        }
+
+        .path-card.accent .step-num { background: var(--accent); }
+        .path-card.green .step-num { background: var(--green); color: #000; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 16px 24px;
+            border-radius: 60px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 0 40px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: #000;
+            box-shadow: 0 0 25px var(--green-glow);
+        }
+
+        .btn-green:hover {
+            background: #34d66e;
+            box-shadow: 0 0 40px var(--green-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-sub {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== TRIAL BADGE ===== */
+        .trial-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0a2a1a, #1a3a2a);
+            border: 1px solid var(--green);
+            color: var(--green);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 15px var(--green-glow);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .hero { padding: 60px 0 40px; }
+
+            .paths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .path-card {
+                padding: 28px 20px;
+            }
+
+            .btn {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">Warsztat: Sabotażyści Mentalni · <span>19.03.2026</span></div>
+            <h1>Dzięki, że byłeś<br>na <span class="highlight">warsztacie!</span></h1>
+            <p class="subtitle">Teraz masz przed sobą dwie drogi, żeby iść dalej. Wybierz tę, która pasuje do Ciebie.</p>
+            <p style="margin-top: 16px; font-size: 0.95rem; color: var(--text); font-weight: 600; letter-spacing: 0.3px;">Możesz wybrać obie.</p>
+        </div>
+    </section>
+
+    <!-- ===== NAGRANIE ===== -->
+    <section style="padding: 0 0 40px;">
+        <div class="container">
+            <a href="/sabotazysci-mentalni/nagranie/" style="display:block; padding:24px 28px; background:linear-gradient(135deg,#1a0a0a,#2a1010); border:1px solid rgba(232,68,58,0.3); border-radius:var(--radius); text-decoration:none; color:var(--text); transition:border-color 0.3s;">
+                <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+                    <span style="font-size:1.5rem;">🎬</span>
+                    <div>
+                        <div style="font-weight:800; font-size:1.05rem; margin-bottom:2px;">Obejrzyj nagranie warsztatu</div>
+                        <div style="font-size:0.85rem; color:var(--text-muted);">Film dostepny przez 7 dni od publikacji</div>
+                    </div>
+                    <span style="margin-left:auto; color:var(--accent); font-weight:700; font-size:0.9rem;">Ogladaj &rarr;</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== DWIE DROGI ===== -->
+    <section class="paths">
+        <div class="container">
+            <div class="paths-grid">
+
+                <!-- DROGA 1: KONSULTACJA -->
+                <div class="path-card accent">
+                    <span class="path-label">Droga 1</span>
+                    <h2>Bezpłatna konsultacja + diagnoza</h2>
+                    <p class="desc">Indywidualne spotkanie online (15 min) z Marcinem Ruskiem. Przestajemy zgadywać, zaczynamy analizować Twoje faktyczne predyspozycje i blokady.</p>
+
+                    <ul class="path-list">
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Oszczędzasz pieniądze</strong> — dostajesz profesjonalny Test Hollanda (90 pytań) całkowicie za darmo, zanim wydasz setki na drogie testy komercyjne</span>
+                        </li>
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Gotowy wynik</strong> — test wypełniasz przed spotkaniem, na konsultację przychodzisz z gotową „mapą" osobowości</span>
+                        </li>
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Indywidualne narzędzia</strong> — na żywo omówimy wyniki i dobierzemy narzędzia dopasowane do Twojego charakteru</span>
+                        </li>
+                    </ul>
+
+                    <ul class="path-steps">
+                        <li><span class="step-num">1</span><span>Zapisujesz się w kalendarzu na darmową konsultację</span></li>
+                        <li><span class="step-num">2</span><span>Odbierasz link do darmowego testu (do 24h po zapisie)</span></li>
+                        <li><span class="step-num">3</span><span>Wypełniasz test i przynosisz wynik na spotkanie</span></li>
+                    </ul>
+
+                    <a href="https://calendly.com/mmarcinek678/rozmowa-z-marcinem-ruskiem" target="_blank" rel="noopener" class="btn btn-accent">📅 UMÓW BEZPŁATNĄ KONSULTACJĘ</a>
+                    <span class="btn-sub">Wybierz termin w kalendarzu Marcina</span>
+                </div>
+
+                <!-- DROGA 2: MASTERZONE -->
+                <div class="path-card green">
+                    <span class="path-label">Droga 2</span>
+                    <div class="trial-badge">🔥 7 DNI ZA DARMO 🔥</div>
+                    <h2>Środowisko, które wygrywa z sabotażystami</h2>
+                    <p class="desc">Teraz wiesz, co Cię blokuje. Ale jutro usiądziesz sam przed laptopem i sabotażyści wrócą. Wiedza nie wystarczy. Potrzebujesz ludzi obok. MasterZone to społeczność, w której codziennie pracujesz, omawiasz blokady i idziesz do przodu. Razem.</p>
+
+                    <ul class="path-list">
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Bloki Pracy Głębokiej</strong> — codziennie rano pracujesz z innymi na kamerze. Obecność ludzi obniża prokrastynację (to zbadany mechanizm: body doubling). Sabotażysta „Odkładacz" nie ma szans, bo po prostu się pojawiasz i robisz.</span>
+                        </li>
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Mastermind co 2 tygodnie</strong> — omawiasz swoje blokady z ludźmi, którzy je rozumieją. Nie sam ze sobą w głowie. Sabotażysta „Sam dam radę" przestaje rządzić.</span>
+                        </li>
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Warsztaty i szkolenia</strong> — AI, mental, poznanie siebie. Nie jednorazowy warsztat, a ciągły rozwój.</span>
+                        </li>
+                        <li>
+                            <span class="icon"></span>
+                            <span><strong>Wspólne planowanie tygodnia</strong> — co tydzień planujesz z systemem i z grupą. Plus wczesny dostęp do aplikacji, w której planujesz z AI. Sabotażysta „Nie wiem od czego zacząć" traci sens.</span>
+                        </li>
+                    </ul>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; padding: 14px 16px; background: rgba(34,197,94,0.08); border-radius: 8px; text-align: center;"><strong style="color: var(--text);">Środowisko zawsze wygrywa z silną wolą.</strong> Jeśli dziś na warsztacie pomyślałeś „to o mnie" — to jest Twój następny krok.</p>
+
+                    <a href="https://www.skool.com/masterzone/about?ref=291187bc59d84db3a00b68a61c66e17f" target="_blank" rel="noopener" class="btn btn-green">👉 DOŁĄCZ — 7 DNI ZA DARMO</a>
+                    <span class="btn-sub">Zero ryzyka. Rezygnujesz kiedy chcesz, bez żadnych kosztów.</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 MasterZone · <a href="/privacy">Polityka prywatności</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
