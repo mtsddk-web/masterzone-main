@@ -958,6 +958,11 @@
 
         /* ─── Mobile ─── */
         @media (max-width: 900px) {
+            .price-comparison-grid {
+                grid-template-columns: 1fr !important;
+                max-width: 340px !important;
+            }
+
             .problems-grid,
             .quotes-grid,
             .testimonials-grid,
@@ -1035,7 +1040,6 @@
                 <a href="#knowledge">Wiedza</a>
                 <a href="#founders">O nas</a>
                 <a href="/blog/">Blog</a>
-                <a href="/ClickUp/">ClickUp</a>
                 <button class="btn btn-primary" onclick="goToCheckout()">Dołącz</button>
             </div>
             <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -1413,27 +1417,39 @@
                 </a>
             </div>
 
-            <div style="margin-top: 4rem;">
+            <!-- Artykuły z bloga ładowane dynamicznie -->
+            <div style="margin-top: 4rem;" id="blog-articles-section">
                 <h3 style="text-align: center; font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.3px;" class="reveal">Najnowsze artykuły</h3>
+                <div class="articles-grid reveal" id="blog-articles-grid"></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="articles-grid reveal">
-                    <a href="/blog/" class="article-card">
-                        <span class="article-tag tag-productivity">Produktywność</span>
-                        <h4 class="article-title">Jak zacząć dzień o 5 rano i nie zwariować</h4>
-                        <p class="article-desc">Metoda małych kroków, która pozwoli Ci dołączyć do klubu 5AM bez szoku dla organizmu.</p>
-                    </a>
-                    <a href="/blog/" class="article-card">
-                        <span class="article-tag tag-deepwork">Deep Work</span>
-                        <h4 class="article-title">Deep Work: Kompletny przewodnik</h4>
-                        <p class="article-desc">Cal Newport miał rację. Głęboka praca to supermoce w świecie pełnym rozpraszaczy.</p>
-                    </a>
-                    <a href="/blog/" class="article-card">
-                        <span class="article-tag tag-automation">Automatyzacja</span>
-                        <h4 class="article-title">5 automatyzacji, które zaoszczędzą Ci 10h/tydzień</h4>
-                        <p class="article-desc">Proste automatyzacje, które może wdrożyć każdy przedsiębiorca w jeden weekend.</p>
-                    </a>
+    <!-- Price Comparison -->
+    <section class="section" id="price-comparison">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Perspektywa</span>
+                <h2 class="section-title">Ile kosztuje <span class="serif">skupienie</span>?</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;" class="reveal price-comparison-grid">
+                <div style="padding: 2rem; background: #fff; border-radius: var(--radius); border: 1px solid var(--border); text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🏢</div>
+                    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink);">Coworking</h3>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--ink-muted);">500–1500 zł<span style="font-size: 0.85rem; font-weight: 400;">/msc</span></p>
+                </div>
+                <div style="padding: 2rem; background: #fff; border-radius: var(--radius); border: 1px solid var(--border); text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🧑‍🏫</div>
+                    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink);">Personal coach</h3>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--ink-muted);">2000+ zł<span style="font-size: 0.85rem; font-weight: 400;">/msc</span></p>
+                </div>
+                <div style="padding: 2rem; background: #fff; border-radius: var(--radius); border: 2px solid var(--accent); text-align: center; box-shadow: var(--shadow-md);">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">🎯</div>
+                    <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--ink);">MasterZone</h3>
+                    <p style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">97 zł<span style="font-size: 0.85rem; font-weight: 400; color: var(--ink-muted);">/msc</span></p>
                 </div>
             </div>
+            <p class="reveal" style="text-align: center; margin-top: 1.5rem; font-size: 0.95rem; color: var(--ink-muted); max-width: 600px; margin-left: auto; margin-right: auto;">Wszystko w jednej cenie — sesje, planowanie, społeczność, kursy.</p>
         </div>
     </section>
 
@@ -1464,7 +1480,7 @@
                         Dołącz do MasterZone
                     </button>
                     <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ink-muted);">
-                        Bezpieczna płatność kartą. Anulujesz w dowolnym momencie.
+                        Płatność przez platformę Skool — bezpieczne, anulujesz kiedy chcesz.
                     </p>
                     <p style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--warm); font-weight: 600;">
                         30-dniowa gwarancja zwrotu — jeśli nie zrobisz więcej w 90 min, oddajemy pieniądze.
@@ -1596,11 +1612,44 @@
             }
         }
 
+        // ─── Load blog articles ───
+        async function loadBlogArticles() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/mtsddk-web/masterzone.edu.pl/main/blog/posts.json?t=' + Date.now());
+                if (!response.ok) return;
+                const data = await response.json();
+                const posts = (data.posts || []).slice(0, 3);
+                if (posts.length === 0) return;
+                const tagMap = {
+                    'automatyzacja': ['tag-automation', 'Automatyzacja'],
+                    'produktywnosc': ['tag-productivity', 'Produktywność'],
+                    'ai': ['tag-deepwork', 'AI'],
+                    'case-study': ['tag-productivity', 'Case Study'],
+                    'narzedzia': ['tag-automation', 'Narzędzia']
+                };
+                const grid = document.getElementById('blog-articles-grid');
+                if (!grid) return;
+                grid.innerHTML = posts.map(function(post) {
+                    const tag = tagMap[post.category] || ['tag-productivity', post.category || 'Blog'];
+                    return '<a href="/blog/#' + (post.slug || '') + '" class="article-card">' +
+                        '<span class="article-tag ' + tag[0] + '">' + tag[1] + '</span>' +
+                        '<h4 class="article-title">' + post.title + '</h4>' +
+                        '<p class="article-desc">' + post.excerpt + '</p>' +
+                    '</a>';
+                }).join('');
+            } catch (e) {
+                // Ukryj sekcję jeśli nie można załadować
+                var section = document.getElementById('blog-articles-section');
+                if (section) section.style.display = 'none';
+            }
+        }
+
         // ─── Init ───
         window.addEventListener('load', () => {
             updateMemberCount().then(animateCounters);
             highlightCurrentBlock();
             setInterval(highlightCurrentBlock, 60000);
+            loadBlogArticles();
         });
     </script>
 </body>
