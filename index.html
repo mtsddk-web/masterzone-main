@@ -653,6 +653,57 @@
             color: var(--ink-muted);
         }
 
+        /* ─── Video Testimonials ─── */
+        .video-testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .video-testimonial-card {
+            background: #fff;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+
+        .video-testimonial-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: transparent;
+        }
+
+        .video-testimonial-player {
+            aspect-ratio: 9 / 16;
+            background: var(--ink);
+            overflow: hidden;
+        }
+
+        .video-testimonial-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .video-testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         /* ─── Founders ─── */
         .founders-grid {
             display: grid;
@@ -985,7 +1036,7 @@
                 <a href="#founders">O nas</a>
                 <a href="/blog/">Blog</a>
                 <a href="/ClickUp/">ClickUp</a>
-                <button class="btn btn-primary" onclick="goToCheckout()">7 dni za darmo</button>
+                <button class="btn btn-primary" onclick="goToCheckout()">Dołącz</button>
             </div>
             <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -1010,7 +1061,7 @@
 
             <div class="hero-cta">
                 <button class="btn btn-primary btn-large" onclick="goToCheckout()">
-                    Zacznij 7 dni za darmo
+                    Dołącz do społeczności
                 </button>
                 <button class="btn btn-secondary btn-large" onclick="scrollToSection('benefits')">
                     Zobacz jak to działa
@@ -1020,15 +1071,15 @@
 
             <div class="stats-bar">
                 <div class="stat">
-                    <span class="stat-number" data-target="35">35+</span>
+                    <span class="stat-number" data-target="39">39</span>
                     <span class="stat-label">Członków</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number" data-target="6">6</span>
+                    <span class="stat-number" data-target="6">6+</span>
                     <span class="stat-label">Godzin deep work</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number" data-target="4">4</span>
+                    <span class="stat-number" data-target="4">4+</span>
                     <span class="stat-label">Bloki dziennie</span>
                 </div>
             </div>
@@ -1238,6 +1289,65 @@
         </div>
     </section>
 
+    <!-- Video Testimonials -->
+    <section class="section" id="video-testimonials">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="section-label">Video opinie</span>
+                <h2 class="section-title">Prawdziwe opinie <span class="serif">uczestników</span></h2>
+                <p class="section-subtitle mx-auto">Zobacz jak MasterZone zmienia sposób pracy — prosto od uczestników.</p>
+            </div>
+
+            <div class="video-testimonials-grid reveal">
+                <div class="video-testimonial-card">
+                    <div class="video-testimonial-player">
+                        <video controls preload="metadata" poster="">
+                            <source src="https://rozproszenie.masterzone.edu.pl/videos/testimonial-dominik-homa.mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                        </video>
+                    </div>
+                    <div class="video-testimonial-author">
+                        <div class="author-avatar">DH</div>
+                        <div>
+                            <div class="author-name">Dominik Homa</div>
+                            <div class="author-role">Przedsiębiorca</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-testimonial-card">
+                    <div class="video-testimonial-player">
+                        <video controls preload="metadata" poster="">
+                            <source src="https://rozproszenie.masterzone.edu.pl/videos/testimonial-bart-dubai.mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                        </video>
+                    </div>
+                    <div class="video-testimonial-author">
+                        <div class="author-avatar">B</div>
+                        <div>
+                            <div class="author-name">Bart</div>
+                            <div class="author-role">Uczestnik Bloków Pracy | Dubai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-testimonial-card">
+                    <div class="video-testimonial-player">
+                        <video controls preload="metadata" poster="">
+                            <source src="https://rozproszenie.masterzone.edu.pl/videos/testimonial-bloki-pracy.mp4" type="video/mp4">
+                            Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                        </video>
+                    </div>
+                    <div class="video-testimonial-author">
+                        <div class="author-avatar">U</div>
+                        <div>
+                            <div class="author-name">Uczestnik Bloków Pracy</div>
+                            <div class="author-role">Członek MasterZone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Founders -->
     <section class="section" id="founders">
         <div class="container">
@@ -1407,7 +1517,7 @@
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
                     // Stagger children if they exist
-                    const children = entry.target.querySelectorAll('.problem-card, .benefit-card, .quote-card, .testimonial-card, .article-card, .founder-card');
+                    const children = entry.target.querySelectorAll('.problem-card, .benefit-card, .quote-card, .testimonial-card, .video-testimonial-card, .article-card, .founder-card');
                     if (children.length > 0) {
                         children.forEach((child, idx) => {
                             child.style.opacity = '0';
@@ -1479,7 +1589,7 @@
                     const el = document.querySelectorAll('.stat-number')[0];
                     if (el) {
                         el.setAttribute('data-target', data.memberCount);
-                        el.textContent = data.memberCount + '+';
+                        el.textContent = data.memberCount;
                     }
                 }
             } catch (e) {
